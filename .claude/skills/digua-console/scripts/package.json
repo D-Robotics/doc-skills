@@ -1,0 +1,33 @@
+{
+  "name": "@d-robotics/digua",
+  "version": "0.2.1",
+  "description": "地瓜 AI 控制台 CLI (digua) — manage keys, view usage, host pages, ask about your AI usage",
+  "type": "module",
+  "bin": {
+    "digua": "./digua.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "files": [
+    "digua.mjs",
+    "README.md"
+  ],
+  "keywords": [
+    "digua",
+    "llm",
+    "litellm",
+    "cli",
+    "ai-native"
+  ],
+  "license": "UNLICENSED",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://gitea.d-robotics.cc/junjie.ding/llm-portal.git",
+    "directory": "cli"
+  },
+  "publishConfig": {
+    "registry": "https://gitea.d-robotics.cc/api/packages/junjie.ding/npm/"
+  }
+}
