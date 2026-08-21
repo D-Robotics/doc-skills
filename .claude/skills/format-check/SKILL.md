@@ -2,7 +2,7 @@
 name: format-check
 version: "1.0"
 category: 文档质量
-description: 格式自检：检查中英文间距、日期格式、代码块语言标注、表格格式、图片链接协议。当研发写完文档、提 Gerrit Change 前使用本 skill 检查排版格式。
+description: 格式自检：检查中英文间距、日期格式、代码块语言标注、表格格式、图片链接协议。当研发写完文档、提 PR 前使用本 skill 检查排版格式。
 ---
 
 # format-check — 格式自检

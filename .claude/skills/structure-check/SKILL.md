@@ -2,7 +2,7 @@
 name: structure-check
 version: "1.0"
 category: 文档质量
-description: 结构自检：检查标题层级、H1 唯一性、占位符残留、模板对齐。当研发写完文档、提 Gerrit Change 前使用本 skill 检查文档结构。
+description: 结构自检：检查标题层级、H1 唯一性、占位符残留、模板对齐。当研发写完文档、提 PR 前使用本 skill 检查文档结构。
 ---
 
 # structure-check — 结构自检

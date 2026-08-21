@@ -2,7 +2,7 @@
 name: term-check
 version: "1.0"
 category: 文档质量
-description: 术语自检：对照 glossary.json 检查文档中的术语是否使用标准写法。当研发写完文档、提 Gerrit Change 前使用本 skill 检查术语。
+description: 术语自检：对照 glossary.json 检查文档中的术语是否使用标准写法。当研发写完文档、提 PR 前使用本 skill 检查术语。
 ---
 
 # term-check — 术语自检

@@ -2,7 +2,7 @@
 name: ai-review
 version: "1.0"
 category: 文档质量
-description: AI 辅助 review：TW 人审之前，用统一 prompt 跑一遍文档，AI 标出四个 skill 查不了的——行文逻辑、信息架构、内容质量。TW 聚焦标记处。适用于 Gerrit Change 或 GitHub PR 的文档变更。
+description: AI 辅助 review：TW 人审之前，用统一 prompt 跑一遍文档，AI 标出四个 skill 查不了的——行文逻辑、信息架构、内容质量。TW 聚焦标记处。适用于 GitHub PR 的文档变更。
 ---
 
 # ai-review — AI 辅助 review
