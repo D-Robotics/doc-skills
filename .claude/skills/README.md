@@ -54,16 +54,19 @@ cp -r .claude/skills/* ~/.claude/skills/   # Claude Code 用户更新
 
 ## Skill 清单
 
-| Skill | 用途 | 使用时机 |
-|:---|:---|:---|
-| `en-check` | 英文写作规范检查（术语、标题、sentence case、语态） | 写完英文文档后 |
-| `zh-en-parity` | 中英文结构对等检查（图片、链接、DocScope、步骤数） | 翻译完成后 |
-| `format-check` | 格式检查（图片 https、链接间距等） | 提 PR 前 |
-| `ai-review` | AI 辅助 Review | 提 PR 前 |
-| `step-check` | 操作步骤检查 | 写操作类文档后 |
-| `term-check` | 术语一致性检查 | 全文写完或修改术语相关后 |
-| `structure-check` | 文档结构检查 | 新建文档或调整目录结构后 |
-| `digua-console` | 地瓜控制台 | 内部使用 |
+按谁跑来分：
+
+| Skill | 用途 | 谁跑 | 使用时机 |
+|:---|:---|:---|:---|
+| `format-check` | 格式检查（中英文间距、代码块语言、图片 https、链接后缀） | 写初稿方 | 提 PR 前 |
+| `step-check` | 操作步骤检查（标题动词开头、步骤编号、异常分支 admonition） | 写初稿方 | 写操作类文档后 |
+| `structure-check` | 文档结构检查（标题层级、H1 唯一、占位符、模板对齐） | 写初稿方 | 新建文档或调整目录结构后 |
+| `term-check` | 术语一致性检查（对照 glossary） | 写初稿方 | 全文写完或修改术语相关后 |
+| `en-check` | 英文写作规范检查（术语、标题、sentence case、语态） | TW | 写完英文文档后 |
+| `zh-en-parity` | 中英文结构对等检查（图片、链接、DocScope、步骤数） | TW | 翻译完成后 |
+| `ai-review` | AI 辅助 Review（行文逻辑、信息架构、内容质量） | TW | 人审前 |
+
+> 写初稿方 = 研发 / AE / 产品（TW 写初稿时也是这一档）。跑 format-check / step-check / structure-check / term-check 这 4 个就够，en-check / zh-en-parity / ai-review 是翻译线和人审的工具，研发不用管。
 
 ## 依赖
 
