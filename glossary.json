@@ -80,7 +80,7 @@
     {
       "分类": "产品命名",
       "标准写法": "XBurn",
-      "错误写法": ["Xburn", "xburn", "Xburn 工具", "XBurn-gui"],
+      "错误写法": ["Xburn", "xburn", "Xburn 工具"],
       "英文名称": "XBurn",
       "全称": "",
       "简称": "",
@@ -140,7 +140,7 @@
     {
       "分类": "行业通用",
       "标准写法": "miniboot",
-      "错误写法": ["Miniboot", "MiniBoot", "Miniboot_flash"],
+      "错误写法": ["Miniboot", "MiniBoot"],
       "英文名称": "miniboot",
       "全称": "",
       "简称": "",
@@ -150,7 +150,7 @@
       "来源": "行业通用",
       "研发确认": "✅",
       "状态": "现行",
-      "备注": "全小写(概念词)。UI 区域值为 `miniboot_flash` / `miniboot_emmc` / `miniboot_ufs`(下划线小写)。现有素材混用 Miniboot/MiniBoot,统一小写。"
+      "备注": "全小写(概念词)。UI 区域值为 `miniboot_flash` / `miniboot_emmc` / `miniboot_ufs`(下划线小写)。现有素材混用 Miniboot/MiniBoot,统一小写。系统内可用 `rdk-miniboot-update` 命令在线升级 miniboot(全小写+连字符,勿写成下划线 `rdk_miniboot_update`)。"
     },
     {
       "分类": "行业通用",
@@ -185,7 +185,7 @@
     {
       "分类": "行业通用",
       "标准写法": "Fastboot",
-      "错误写法": ["fastboot", "dfu_fastboot", "dfu-fastboot", "DFU-Fastboot", "DFU+Fastboot"],
+      "错误写法": ["fastboot"],
       "英文名称": "Fastboot",
       "全称": "",
       "简称": "",
@@ -273,7 +273,7 @@
       "备注": "正文器件描述用 `NAND Flash`(两词),单字简称 `NAND` 见英文名称(全大写)。UI 存储介质下拉存在 `Nand`/`Nandflash` 等异形(大小写与连写均不规范),属界面待改,纳入界面待改清单,不迁就正文标准写法。"
     },
     {
-      "分类": "硬件/存储",
+      "分类": "行业通用",
       "标准写法": "NOR Flash",
       "错误写法": ["Norflash", "NORFlash", "nor flash", "norflash", "NORFLASH"],
       "英文名称": "NOR Flash",
@@ -508,7 +508,7 @@
       "来源": "D-Robotics 工具命名",
       "研发确认": "✅",
       "状态": "现行",
-      "备注": "大小写 RDK S(大写)。"
+      "备注": "RDK 全大写,Studio 首字母大写。"
     },
     {
       "分类": "工具命名",
@@ -524,21 +524,6 @@
       "研发确认": "行业",
       "状态": "现行",
       "备注": "首字母大 M+大写 X。第三方工具名，非 D-Robotics 产品。"
-    },
-    {
-      "分类": "工具命名",
-      "标准写法": "rdk-miniboot-update",
-      "错误写法": ["rdk-miniboot-update", "rdk miniboot update", "rdk_miniboot_update"],
-      "英文名称": "rdk-miniboot-update",
-      "全称": "",
-      "简称": "",
-      "释义": "RDK 系统内 miniboot 升级命令，前提是系统正常运行且已联网，直接在开发板终端执行。",
-      "上下文例句": "sudo rdk-miniboot-update 更新 miniboot 为最新版本。",
-      "适用范围": "X 系列(X5/X5 Module)",
-      "来源": "D-Robotics 命令",
-      "研发确认": "✅",
-      "状态": "现行",
-      "备注": "全小写+连字符。命令行名称，保留原样。"
     },
     {
       "分类": "行业通用",
@@ -573,7 +558,7 @@
     {
       "分类": "行业通用",
       "标准写法": "PoE",
-      "错误写法": ["POE", "poe", "Poe", "PoE 供电"],
+      "错误写法": ["POE", "poe", "Poe"],
       "英文名称": "PoE (Power over Ethernet)",
       "全称": "Power over Ethernet",
       "简称": "",
@@ -588,7 +573,7 @@
     {
       "分类": "行业通用",
       "标准写法": "空板",
-      "错误写法": ["裸板", "无系统板", "空白板"],
+      "错误写法": ["无系统板", "空白板"],
       "英文名称": "empty board",
       "全称": "",
       "简称": "",
@@ -598,7 +583,7 @@
       "来源": "行业通用",
       "研发确认": "行业",
       "状态": "现行",
-      "备注": ""
+      "备注": "不写 `裸板`（裸板通常指未焊元件的裸 PCB，与本术语含义不同）。"
     }
   ]
 }
