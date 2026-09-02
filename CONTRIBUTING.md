@@ -17,7 +17,7 @@ glossary.json 是术语 SSOT，喂 term-check / CAT 翻译记忆 / MCP 检索 / 
 | --- | --- | --- |
 | 查 | 任何人 | 直接查 |
 | 提案（新增术语 / 改英文名称 / 补错误写法） | 任何人都可，TW 尤其积极（翻译一线天天撞新词） | 开 PR；`研发确认` 未定的填「待确认」或「❌」 |
-| 定稿（标准写法 / 释义 / 研发确认落定） | IA | PR review；CODEOWNERS 强制 IA 审 glossary.json |
+| 定稿（标准写法 / 释义 / 研发确认落定） | IA | PR review（CODEOWNERS 自动指定 IA + TW 双 reviewer，定稿由 IA 把关） |
 
 **规则**：
 
