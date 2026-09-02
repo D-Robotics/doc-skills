@@ -28,6 +28,5 @@ glossary.json 是术语 SSOT，喂 term-check / CAT 翻译记忆 / MCP 检索 / 
 
   ```bash
   node scripts/glossary-to-csv.js -o scripts/glossary.csv
-  node scripts/glossary-to-csv.js --feishu -o scripts/glossary-feishu.csv
   node scripts/glossary-aliases.js
   ```
