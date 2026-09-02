@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$comment": "文档团队术语表 (Glossary)。面向全团队所有手册 + 计算机辅助翻译 (CAT) 的术语一致性参考。单一事实来源——文档站渲染与 CAT 导入均从本文件生成,改术语只改这里。schema 与术语数据同文件,术语数据置于 glossary 数组下。",
+  "title": "Glossary",
+  "type": "object",
+  "required": ["glossary"],
+  "properties": {
+    "glossary": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["分类", "标准写法", "英文名称", "释义", "来源", "研发确认"],
+        "properties": {
+          "分类": {
+            "type": "string",
+            "description": "二值:行业通用 / 产品命名。行业通用=具身智能行业通用的术语;产品命名=D-Robotics 自有产品/工具/字段的命名。",
+            "enum": ["行业通用", "产品命名"]
+          },
+          "标准写法": {
+            "type": "string",
+            "description": "主键。文档中权威写法,含大小写/连字符/下划线。UI 显示也以本字段为准;若 UI 实际与之一致则备注不记差异。"
+          },
+          "错误写法": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "现有素材/历史中出现过的非标准写法,需在文档中收敛到标准写法。自动化 term-check 据此判违规则。无错误写法留空数组 []。"
+          },
+          "英文名称": {
+            "type": "string",
+            "description": "CAT 翻译目标写法。与标准写法相同=保持英文不译(如 Fastboot→Fastboot);中文概念给译文(如 烧录→Flashing)。"
+          },
+          "全称": {
+            "type": "string",
+            "description": "缩写类填展开形式(eMMC=embedded MultiMediaCard)。未确认标'待确认',不臆造。无展开留空字符串。"
+          },
+          "简称": {
+            "type": "string",
+            "description": "产品名(S100)/缩写类的简称。多数术语简称即标准写法,留空字符串即可。"
+          },
+          "释义": {
+            "type": "string",
+            "description": "一句话用户视角释义。命名陷阱在此说明(如 secure 字面像安全实为不校验)。"
+          },
+          "上下文例句": {
+            "type": "string",
+            "description": "CAT 标配。挑一句真实文档原话,译员据此判断术语在句中用法。产品名等自明术语留空字符串。"
+          },
+          "适用范围": {
+            "type": "string",
+            "description": "通用 / S系列 / X系列 / XBurn手册 等。产品名留空字符串(自身即范围)。"
+          },
+          "来源": {
+            "type": "string",
+            "description": "行业标准(USB-IF / JEDEC / Android 生态 / 1977 Xmodem 协议)或术语产生方式(D-Robotics 命名 / D-Robotics 烧录工具演进)。不写文件:行号——本表面向一致性,非变更追溯。"
+          },
+          "研发确认": {
+            "type": "string",
+            "description": "✅ 已研发确认 / ❌ 未确认 / 待确认 / 行业(行业标准词无需研发背书)。",
+            "enum": ["✅", "❌", "待确认", "行业"]
+          },
+          "状态": {
+            "type": "string",
+            "description": "现行 / 草案 / 待确认。治理用,区分已锁定 vs 待确认项。",
+            "enum": ["现行", "草案", "待确认"]
+          },
+          "备注": {
+            "type": "string",
+            "description": "别名、错误写法、UI 实际显示与标准写法的差异、关联术语 [[name]]。"
+          }
+        }
+      }
+    }
+  }
+}
