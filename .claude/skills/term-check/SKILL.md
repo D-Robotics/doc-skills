@@ -7,7 +7,7 @@ description: 术语自检：对照 glossary.json 检查文档中的术语是否�
 
 # term-check — 术语自检
 
-对照 `C:\Users\ling.li\doc-standards\glossary.json` 检查文档中的术语是否使用标准写法。
+对照 `glossary.json`（术语 SSOT，本仓库 doc-skills 根目录；在线副本 <https://raw.githubusercontent.com/D-Robotics/doc-skills/main/glossary.json>）检查文档中的术语是否使用标准写法。
 
 ## 检查规则
 
