@@ -1,13 +1,15 @@
 ---
 name: draft-doc
 version: "1.0"
-category: 文档生产
-description: 初稿生成：给背景/参考信息，按模板+写作规范+术语表写一份标准初稿，写完自动跑 4 个自检 skill 修到全绿。面向写初稿方（研发/AE/产品/TW）。
+category: 文档质量
+description: 初稿生成：给背景/参考信息，按模板+写作规范+术语表写一份标准中文初稿，写完自动跑 4 个自检 skill 修正。面向写初稿方（研发/AE/产品/TW）。
 ---
 
 # draft-doc — 初稿生成
 
-给背景/参考信息，产出符合团队规范的标准初稿。你是「写初稿方」的加速器：读模板、写作规范、术语表三份 SSOT 写初稿，写完调 4 个自检 skill 修，交一份规则上干净的初稿 + 待补清单。
+给背景/参考信息，产出符合团队规范的标准**中文初稿**。你是「写初稿方」的加速器：读模板、写作规范、术语表三份 SSOT 写初稿，写完调 4 个自检 skill 修，交一份规则上干净的草稿 + 待补清单。
+
+> 本 skill 只出中文初稿。英文稿 / 中译英走 TW 线和 `en-check`，不在本 skill 范围。
 
 ## 触发方式
 
@@ -23,25 +25,27 @@ description: 初稿生成：给背景/参考信息，按模板+写作规范+术�
 1. **定类型**：按 Diátaxis 五选一（见下表），定不了就问一句。
 2. **问最小必要信息**：只问「定骨架所必需」的（产品/设备、文档类型、目标读者、关键前提）。能推断的推断，其余缺的写 `TODO:`。
 3. **读三份 SSOT**：对应模板（骨架）+ `writing-style-guide.md` 相关章节 + `glossary.json` 涉及术语的标准写法。
-4. **写初稿**：按模板骨架填。给的事实写实；没给的写 `TODO: 缺什么`；截图用 OSS 占位路径。
-5. **调自检 skill 修**：按文档类型跑 `format-check` / `step-check` / `structure-check` / `term-check`（见下表），把可修的 ❌ 修掉——术语、空格、标题、列表、图片缩进、frontmatter。`structure-check` 报的 `TODO` 是故意留下的待补项，**不修**，汇总进待补清单。
-6. **出稿**：交「除 TODO 外全绿」的初稿 + 文末待补清单。
+4. **写初稿**：按模板骨架填。给的事实写实；没给的写 `TODO: 缺什么`；截图用 OSS 占位路径；模板里没填的 `【】` 占位转成 `TODO:`，不留原样。
+5. **调自检 skill 修**：按文档类型跑 `format-check` / `step-check` / `structure-check` / `term-check`（见下表），把可修的 ❌ 修掉——术语、空格、标题、列表、图片缩进、frontmatter。`structure-check` 报的 `TODO` 不修，**记进待补清单**。
+6. **出稿**：交「带 TODO 的草稿 + 待补清单」。这是**草稿**，没过门禁，不提交、不进 PR。
 
 ## 选模板
 
 | 文档类型 | 模板文件 | 何时用 |
 |---|---|---|
-| 快速入门 | `doc-templates/quick-start.md` | 从零到跑通的最短路径 |
-| 操作指南 | `doc-templates/how-to-guide.md` | 已会基础，完成一个具体任务 |
-| 功能概述 | `doc-templates/feature-overview.md` | 介绍功能/概念全貌，无操作步骤 |
-| 故障排查 | `doc-templates/troubleshooting.md` | 按现象排查、根因分析 |
-| 发布说明 | `doc-templates/release-notes.md` | 版本变更、新特性、已知问题 |
+| 快速入门 | [`quick-start.md`](../../doc-templates/quick-start.md) | 从零到跑通的最短路径 |
+| 操作指南 | [`how-to-guide.md`](../../doc-templates/how-to-guide.md) | 已会基础，完成一个具体任务 |
+| 功能概述 | [`feature-overview.md`](../../doc-templates/feature-overview.md) | 介绍功能/概念全貌，无操作步骤 |
+| 故障排查 | [`troubleshooting.md`](../../doc-templates/troubleshooting.md) | 按现象排查、根因分析 |
+| 发布说明 | [`release-notes.md`](../../doc-templates/release-notes.md) | 版本变更、新特性、已知问题 |
 
 ## 读三份 SSOT（读，不抄进本 skill）
 
-- `doc-templates/<对应模板>.md` —— 骨架和章节顺序
-- `writing-style-guide.md` —— 操作类重点 §7 步骤写法 / §7.3 列表，其余按文档类型读相关章节
-- `glossary.json` —— 涉及术语一律查「标准写法」，别凭记忆写
+以下路径都相对 **doc-skills 仓根**（skill 位于 `.claude/skills/draft-doc/`，用 `../../` 上跳）：
+
+- [`doc-templates/`](../../doc-templates/) —— 骨架和章节顺序
+- [`writing-style-guide.md`](../../writing-style-guide.md) —— 操作类重点 §7 操作类文档写法 / §7.3 步骤带操作顺序，其余按文档类型读相关章节
+- [`glossary.json`](../../glossary.json) —— 涉及术语一律查「标准写法」，别凭记忆写
 
 ## 调 4 个自检 skill（调，不抄规则）
 
@@ -64,31 +68,36 @@ description: 初稿生成：给背景/参考信息，按模板+写作规范+术�
 ## TODO 约定
 
 - 格式：`TODO: 缺什么`（带提示，不写光秃秃 `TODO`），例如 `TODO: XBurn 版本号 ≥ ?`。
-- `structure-check` 已在拦 `TODO`——这是**故意留下、显式记账**的待补项，不算「要修掉的 ❌」；由文末待补清单兜住，发布前研发补完、清掉 TODO 才算真全绿。
+- `TODO` 是**草稿阶段专用标记**。`structure-check` 和文档仓 CI（`check-placeholder.sh`）都会拦 `TODO`——这是**安全网，不是障碍**：带 TODO 的草稿本来就该进不了 PR。草稿阶段随便留，**提交 / 建 PR 前必须清零**。
+- 研发补完事实、清掉 TODO，再过 `structure-check` 才是真全绿。draft-doc 交的带 TODO 稿是**草稿**，不是可提交稿。
 
-## 待补清单（初稿文末临时附录，发布前删）
+## 交付前自检（写完后逐条过）
 
-把正文所有 `TODO` 汇总，按三类分组：
+- 正文 `grep 【` 必须**清零**——模板里没填的 `【】` 要么填实、要么转成 `TODO:`，不能原样残留（`structure-check` / CI 都不拦 `【】`，只能靠这一步清）。
+- 正文除 `TODO` 外，4 个自检 skill 全绿。
+- 待补清单见下，**不写进正文**。
+
+## 待补清单（对话输出 / 单独文件交付，不进正文）
+
+把正文所有 `TODO` 汇总，按「谁来补」分组，作为对话输出或单独文件交付——**不写进文档正文**，正文严格对齐模板：
 
 ```markdown
 ## 待补清单
 
-### 事实待补
+### 研发补
 - [ ] TODO: XBurn 版本号 ≥ ?
 - [ ] TODO: 烧录镜像下载地址
-
-### 术语待入库
-- [ ] 「安全启动」未在 glossary，需走术语治理入库
-
-### 需研发确认
 - [ ] TODO: 步骤二支持哪些产品类型
+
+### 术语治理（待入 glossary，走提案 → 定稿 → 入库）
+- [ ] TODO: 「安全启动」未在 glossary，需走术语治理入库
 ```
 
 ## 输出
 
 交两样东西：
 
-1. **初稿**：除 `TODO` 外，4 个自检 skill 全绿。
-2. **待补清单**：文末附录，列全所有 `TODO` 及其分组，让研发一眼看清还缺什么。
+1. **草稿**：正文除 `TODO` 外 4 个自检 skill 全绿，且无残留 `【】`。
+2. **待补清单**：作为对话输出或单独文件，列全所有 `TODO` 按「谁来补」分组，让研发一眼看清还缺什么。
 
 > 你交的是「初稿」，不是「可发布稿」——技术准确性由研发兜底，TODO 由研发填，QA 实测、人审一个不少。
