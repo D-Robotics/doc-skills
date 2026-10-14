@@ -2,17 +2,17 @@
 name: term-check
 version: "1.0"
 category: 文档质量
-description: 术语自检：对照 glossary.json 检查文档中的术语是否使用标准写法。当研发写完文档、提 PR 前使用本 skill 检查术语。
+description: 用词规范自检：对照 glossary.json 检查术语标准写法，并扫描口语化表达（动词缩略、口语副词等），提示替换为书面语。当研发写完文档、提 PR 前使用本 skill。
 ---
 
-# term-check — 术语自检
+# term-check — 术语与书面语自检
 
-对照 `glossary.json`（术语 SSOT，本仓库 doc-skills 根目录；在线副本 <https://raw.githubusercontent.com/D-Robotics/doc-skills/main/glossary.json>）检查文档中的术语是否使用标准写法。
+对照 `glossary.json`（术语 SSOT，本仓库 doc-skills 根目录；在线副本 <https://raw.githubusercontent.com/D-Robotics/doc-skills/main/glossary.json>）检查术语标准写法；同时对照下方「口语 → 书面语」对照表检查口语化表达。
 
 ## 检查规则
 
 1. 读取 glossary.json，提取所有术语的「标准写法」和「错误写法」
-2. 逐行扫描文档，找出所有不匹配标准写法的术语
+2. 逐行扫描文档，找出所有不匹配标准写法的术语；并对照「口语 → 书面语」表找出口语化表达
 3. 输出格式：`行号: 错误写法 → 标准写法`
 
 ## 忽略
@@ -21,6 +21,7 @@ description: 术语自检：对照 glossary.json 检查文档中的术语是否�
 - URL 和文件路径
 - 行内代码内的内容（反引号包裹）
 - UI 枚举值保留原样：`secure` / `secure_ohp` / `xmodem_fastboot` / `xmodem` / `miniboot_flash` / `miniboot_emmc` / `miniboot_ufs` / `miniboot_nvme` / `nvme` / `usb` / `emmc` / `ufs` / `DFU+Fastboot`（这些是工具定义的字段值，不按术语表修正）
+- UI 界面文案与按钮文字保留原样（如「确定」「取消」「勾选」）
 
 ## 常见错误速查
 
@@ -49,16 +50,45 @@ description: 术语自检：对照 glossary.json 检查文档中的术语是否�
 | 中文 | 登陆 | 登录 |
 | 中文 | 刷机 / 烧写 / 烧入 | 烧录 |
 
+## 书面语检查（口语 → 书面语）
+
+术语级口语（板子 → 开发板、刷机 → 烧录等）已作为「错误写法」收进 glossary.json，走上方术语检查；下表收**表达级口语**（动词缩略、口语副词/代词、程度词等），不重复收 glossary。
+
+| 口语 | 书面语 | 说明 |
+|------|--------|------|
+| 烧回 | 烧录回 | 「把备份镜像烧回开发板」→「烧录回开发板」 |
+| 不勾 | 取消勾选 | 复选框场景；「不勾选」亦可 |
+| 点一下 | 单击 | 鼠标操作 |
+| 点开 | 打开 | |
+| 关掉 | 关闭 | |
+| 装上 | 安装 | |
+| 卸掉 | 卸载 | |
+| 跑起来 | 启动 / 运行 | 按语境 |
+| 起不来 | 无法启动 | |
+| 卡住 / 卡死 | 无响应 | |
+| 崩了 | 崩溃 | |
+| 闪退 | 意外退出 | |
+| 没反应 | 无响应 | |
+| 好使 | 可用 | |
+| 不行 | 无法 / 不可 | 按语境 |
+| 啥 | 什么 | |
+| 咋 | 怎么 | |
+| 好多 | 许多 / 很多 | |
+| 挺 | 相当 / 很 | 程度词 |
+| 贼 | 非常 | 程度词 |
+
+> 本表为起始种子，随团队反馈增补。
+
 ## 输出示例
 
 ```text
-✅ term-check 通过，未发现术语问题。
+✅ term-check 通过，未发现术语或口语问题。
 ```
 
 ```text
-❌ term-check 发现 3 处术语问题：
+❌ term-check 发现 3 处用词问题：
 
   12: Xburn → XBurn
-  45: uboot → U-Boot
+  45: 不勾 → 取消勾选
   78: 登陆 → 登录
 ```
