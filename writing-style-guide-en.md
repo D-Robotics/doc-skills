@@ -2,7 +2,7 @@
 
 > **Audience**: Anyone writing English content for the doc site — the docs team (translating/rewriting) and developers filing PRs (lightweight operation).
 > **Scope**: Writing conventions specific to **English** docs — headings, voice, capitalization, terminology. Chinese-specific typography (CJK spacing, full-width punctuation) lives in [writing-style-guide.md](writing-style-guide.md); this guide does not repeat it.
-> **Enforcement**: **Reporting level — manual review for now, CI reporting after Vale Phase 3 lands.** Same posture as the Chinese guide. See §4.
+> **Enforcement**: **Reporting level — manual review for now, CI reporting after Vale Phase 3 lands.** Same posture as the Chinese guide. See §5.
 > **Maintainer**: Documentation architecture team.
 
 | Revised by | Version | Changes | Published |
@@ -169,9 +169,33 @@ Four conventions that most improve scannability and consistency.
 
 ---
 
-## 4. Enforcement and relationship to other guides
+## 4. Admonitions (note / info / tip / warning / danger)
 
-### 4.1 Reporting level, manual review for now
+Docusaurus admonitions follow the GitHub / Diátaxis convention, ordered by **consequence severity**: note < info < tip < warning < danger.
+
+| Type | Use when | Tone |
+|------|----------|------|
+| `:::note` | Background knowledge or optional info; removing it does not block the task | Neutral |
+| `:::info` | Supplementary facts (config values, links, parameter descriptions) | Neutral |
+| `:::tip` | Recommended practice, time-saving tricks, best practices | Recommends |
+| `:::warning` | Error-prone points, things that can go wrong (usually recoverable) | Warns |
+| `:::danger` | Severe irreversible consequences (damaged hardware, permanent data loss) | Strong warning |
+
+**Usage rules:**
+
+- **Don't overuse.** A wall of boxes is visual noise; readers tune them all out. If body text can carry it, don't box it. Reserve boxes for content that genuinely needs emphasis.
+- **Title optional but recommended.** Write `:::warning Title` with a short, on-point title; without one, Docusaurus uses a default ("Note" / "Warning" and so on).
+- **Self-contained content.** Each box must be complete on its own; the reader should not have to leave to understand it.
+- **No FAQ/troubleshooting in boxes.** If a dedicated page exists, link to it (for example, "see [Serial and driver issues](../troubleshooting/serial-driver)") instead of restating it inside a tip.
+- **No internal notes in the published manual.** Marks like `:::info To be confirmed` never go into the published manual — either complete the content or delete the box.
+
+> Mirrors the Chinese guide's [§7.9](writing-style-guide.md) — same five levels and criteria, so the two guides stay in sync on admonition semantics.
+
+---
+
+## 5. Enforcement and relationship to other guides
+
+### 5.1 Reporting level, manual review for now
 
 These rules **do not enter CI yet**. markdownlint and custom-checks do not check heading voice, capitalization, or emoji (they catch format/availability only — see the CI pipeline spec §4.2).
 
@@ -183,24 +207,24 @@ These rules **do not enter CI yet**. markdownlint and custom-checks do not check
 
 > Heading voice and capitalization are things developers won't remember and CI won't catch — putting them in the dev baseline would create "required but unenforced" dead rules (same reasoning as the Chinese guide). The docs team converges them during rewrite/sweep.
 
-### 4.2 After Vale Phase 3
+### 5.2 After Vale Phase 3
 
 Per the CI pipeline spec §2.2, the Vale style layer is Phase 3 (lowest priority). This guide's rules are inputs for Vale:
 - **Phase 3 launch**: Vale flags title-case headings, "How to" prefixes, and emoji in headings or body text — CI **reports** (non-blocking).
 - **After rules mature and false positives shrink**: promote from report to block.
 
-### 4.3 Relationship to other guides
+### 5.3 Relationship to other guides
 
 | Guide | What it covers | Relationship to this one |
 |-------|---------------|--------------------------|
 | [writing-style-guide.md](writing-style-guide.md) | Chinese typography (CJK spacing, full-width punctuation, 操作类文档写法) and language-agnostic rules (§7.13 status and results) | Sibling — this guide holds English-specific rules; language-agnostic rules are defined there and apply to both languages |
 | [glossary.json](glossary.json) | Terminology — what things are **called** and their casing (`英文名称` field) | This guide defers to the glossary for proper-noun casing (XBurn, RDK S100, NVMe); do not invent casing here |
 | [writing-baseline-rd.md](writing-baseline-rd.md) | Dev-required subset (factual accuracy, completeness) | English-style rules are **not** in the dev baseline — devs follow the baseline, docs team follows this guide |
-| CI pipeline spec | What CI checks and blocks | §4.2 here says which English rules enter CI and when |
+| CI pipeline spec | What CI checks and blocks | §5.2 here says which English rules enter CI and when |
 
 ---
 
-## 5. Starter scope
+## 6. Starter scope
 
 This guide is a **minimum set**, covering the rules with the biggest scannability payoff:
 
@@ -208,6 +232,7 @@ This guide is a **minimum set**, covering the rules with the biggest scannabilit
 2. Sentence case for headings, titles, and **all UI text** — buttons, menus, tabs, dialog titles, card titles, sidebar, body, `alt` (§2, §2.3)
 3. Voice: active, second person, present tense, one idea per sentence (§3)
 4. Status and results in words, no emoji in headings or body, parallel list labels (§2.2)
+5. Admonition types and when to use each (note / info / tip / warning / danger) (§4)
 
 **Not yet covered** (add when Vale Phase 3 lands, on demand):
 
@@ -215,6 +240,6 @@ This guide is a **minimum set**, covering the rules with the biggest scannabilit
 - Punctuation in and around code (periods inside/outside backticks)
 - Number formatting (80 TOPS, 6-core, version strings)
 - Link text conventions ("see X" vs bare URLs)
-- Admonition usage in English docs
+- List parallelism (every item starts the same part of speech)
 
 > Same reasoning as the Chinese guide: at reporting level, more rules mean higher review cost with diminishing returns. Land the highest-impact rules first; expand as the enforcement mechanism (Vale) matures — rules and tooling grow together, avoiding "rules written, nobody enforces."
