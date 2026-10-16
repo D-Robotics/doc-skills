@@ -26,7 +26,7 @@ non-secure,non-secure,"行业安全术语(TrustZone non-secure world),仅作镜�
 USB,USB,"通用串行总线,XBurn 实际烧录场景全产品通用连接方式。",连接类型选择 `usb`。,通用,"全称: Universal Serial Bus | 错误写法(勿用): usb / Usb | 大写。正文按标准 `USB`。UI 连接类型值显示小写 `usb`,属界面待改,纳入界面待改清单,不迁就正文。"
 Type-C,USB Type-C,"USB 物理接口形态,烧录用 Type-C 数据线连接 PC 与开发板。",使用 Type-C 数据线连接 PC 与开发板。,通用,"全称: USB Type-C | 错误写法(勿用): Type-c / type-c / Type C / TypeC / type c / TYPE-C | 首字母大写 T+连字符 `-` 不空格。正文器件描述用 `Type-C`,不写 `Type C`(空格)或 `TypeC`(连写)。"
 Serial+USB,Serial+USB,"串口(控制)+ USB(数据)组合连接方式,X5 系列实际使用。",连接类型:选择 Serial+USB。,X 系列(X5/X5 Module),错误写法(勿用): serial+usb / Serial_USB / serial_usb / 串口+USB / 串口 +USB | 首字母大写+加号。
-烧录,Flashing,将固件写入板载存储的过程。,使用 XBurn 完成系统烧录。,通用,错误写法(勿用): 刷机 / 烧写 / 烧入 / 下载
+烧录,Flashing,将固件或系统镜像写入板载存储(eMMC/UFS/NAND Flash/NOR Flash)的过程。,使用 XBurn 完成系统烧录。,通用,"错误写法(勿用): 刷机 / 烧写 / 烧入 | 英文映射按工具划分:语境涉及 D-Robotics XBurn 工具时用 `Burn`(工具名 XBurn 自带 burn 语感);其余语境(RDK Studio、通用描述、其他烧录工具)统一用行业标准 `Flashing`。外部工具原生命令 `fastboot flash`、`flash.sh`、`idf.py flash` 为专有命令名,保持原样不译不改。"
 Wi-Fi,Wi-Fi,"无线局域网技术,板载无线连接方式之一。",开发板经 Wi-Fi 连接网络。,通用,"错误写法(勿用): WiFi / Wifi / wifi / WI-FI / Wi-fi | 大写 W+连字符+大写 F。Wi-Fi Alliance 官方写法。现有素材混用 WiFi/Wifi,统一 Wi-Fi。"
 Type-A,USB Type-A,"USB 物理接口形态,标准矩形 USB 接口。",用 Type-A 数据线连接 PC。,通用,"全称: USB Type-A | 错误写法(勿用): Type A / TypeA / TYPE-A / Type-a / type-a | 首字母大写 T+连字符+大写 A,与 Type-C 写法对称(见术语表 Type-C 条)。正文器件描述用 `Type-A`,不写 `Type A`(空格)或 `TypeA`(连写)。"
 D-Robotics,D-Robotics,RDK 开发者套件与 XBurn 工具的品牌方。,D-Robotics 提供 RDK 系列开发者套件。,通用,"错误写法(勿用): Digua / digua / DiGua / 地瓜 | 公司正式名。`Digua`/`地瓜` 为历史内部代号,英文文档与对外材料统一改 D-Robotics。仓内多处历史遗留见存量。"
@@ -38,3 +38,32 @@ Micro SD 卡,microSD card,微型 SD 存储卡，RDK 开发板系统启动介质�
 Sleep 按键,Sleep button,RDK 开发板上的硬件按键，长按进入烧录模式（UMS），将 SD 卡或 eMMC 映射为 U 盘。,按住 Sleep 按键不放，给开发板上电，等待约 5s。,X 系列(X5/X5 Module),错误写法(勿用): sleep 按键 / Sleep 按钮 / Sleep 键 / SLEEP 按键 | 首字母大写 S。按键名统一 `Sleep`，不写 `SLEEP` 或 `sleep`。
 PoE,PoE (Power over Ethernet),以太网供电，RDK X5 支持通过网口为开发板供电。,更多供电方式参见 PoE 供电使用。,X 系列(X5),全称: Power over Ethernet | 错误写法(勿用): POE / poe / Poe | P 大写 + o 小写 + E 大写。
 空板,empty board,未烧录任何系统或固件的开发板，需要通过 XBurn 的 xmodem_fastboot 模式首次烧录。,xmodem_fastboot 适用于空板或设备无法正常启动的场景。,通用,错误写法(勿用): 无系统板 / 空白板 | 不写 `裸板`（裸板通常指未焊元件的裸 PCB，与本术语含义不同）。
+GPIO,GPIO,通用输入输出接口，提供数字信号输入/输出能力，可连接传感器、按键、指示灯、继电器等外部设备。,通过 GPIO 捕获按钮按压事件。,通用,全称: General Purpose Input/Output | 错误写法(勿用): gpio / Gpio / GPOI
+PWM,PWM,脉宽调制，通过调节占空比输出脉冲信号，用于驱动舵机、电机、LED 灯、蜂鸣器等执行设备。,通过 PWM 接口控制舵机转动特定角度。,通用,全称: Pulse Width Modulation | 错误写法(勿用): pwm / Pwm | 全大写。中文正文可写作「脉宽调制」。
+UART,UART,通用异步收发传输器，串行通信接口，通过 TX/RX 端口进行数据收发。,通过 UART 接口进行回环测试。,通用,全称: Universal Asynchronous Receiver/Transmitter | 错误写法(勿用): uart / Uart | 全大写。RDK X5 回环测试使用设备路径 /dev/ttyS1。
+I2C,I2C,集成电路总线，双线式串行通信，通过时钟线 SCL 和数据线 SDA 与多个外部设备通信。,通过 I2C 接口控制 OLED 屏幕显示。,通用,全称: Inter-Integrated Circuit | 错误写法(勿用): I2c / i2c / iic / IIC | 规范符号为 I²C，工程文档统一用 I2C。
+SPI,SPI,串行外设接口，高速同步串行通信，通过 SCK/MISO/MOSI/CS 信号线实现主控与外部器件传输。,通过 SPI 接口控制屏幕显示。,通用,全称: Serial Peripheral Interface | 错误写法(勿用): spi / Spi | 全大写。
+CAN,CAN,控制器局域网络，面向实时控制的串行通信总线，通过差分信号线 CAN_H/CAN_L 实现多设备组网。,通过 CAN 接口控制 GM6020 电机转动。,通用,全称: Controller Area Network | 错误写法(勿用): can / Can / CanBus | 全大写。区分概念词「CAN 总线」与小写设备名（can0、can_left、can_right）。
+OLED,OLED,有机发光二极管显示屏，本仓库 I2C 接口案例使用 I2C OLED 屏幕（SSD1306 驱动）。,通过 I2C 接口控制 OLED 屏幕显示。,通用,全称: Organic Light-Emitting Diode | 错误写法(勿用): oled / Oled / OLED 屏 | 全大写。区别于 LCD（液晶显示屏）。
+ASR,ASR,自动语音识别，即语音转文字技术，将人类语音实时转换为文本。,ASR 即将语音实时转换为文本。,通用,全称: Automatic Speech Recognition | 错误写法(勿用): asr / Asr | 全大写。中文标准写法「语音转文字」，避免与「语音识别」混用。
+KWS,KWS,关键词唤醒，实时识别特定唤醒词/关键词的语音识别技术，实现低功耗唤醒。,KWS 识别关键词：你好地瓜。,通用,全称: Keyword Spotting | 错误写法(勿用): kws / Kws | 全大写。中文标准写法「关键词唤醒」，避免与「关键词检测」混用。
+TTS,TTS,文本转语音，即语音合成技术，将文本信息转换为自然流畅的语音。,TTS 即语音合成技术。,通用,全称: Text To Speech | 错误写法(勿用): tts / Tts | 全大写。中文标准写法「文本转语音」，避免与「文字转语音」「语音合成」混用。
+LLM,LLM,大语言模型，基于深度学习与海量文本训练的人工智能模型，具备自然语言理解、生成、推理能力。,启动 LLM 推理节点。,通用,全称: Large Language Model | 错误写法(勿用): llm / Llm | 全大写。中文标准写法「大语言模型」，不写「大模型」。
+RTF,RTF,实时率，语音模型推理性能指标，等于推理耗时除以音频时长（inference_time_seconds/audio_seconds），小于 1 表示快于实时。,RTF（inference_time_seconds/audio_seconds）：0.52（8 核 CPU）。,通用,全称: Real-Time Factor | 错误写法(勿用): rtf / Rtf | 全大写。作为 Benchmark 指标出现在各语音案例的性能表格中。
+YOLO,YOLO,目标检测算法系列，本仓库目标检测案例使用 YOLO11m 模型。,模型选择：YOLO11m。,通用,全称: You Only Look Once | 错误写法(勿用): yolo / Yolo | 全大写。模型名如 YOLO11m 保持官方大小写。
+SenseVoice,SenseVoice,阿里语音识别模型，本仓库 ASR 案例用于语音转文字。,ASR 模型选择：SenseVoice。,通用,错误写法(勿用): sensevoice / Sensevoice / sense-voice | S 与 V 大写。模型文件 sense-voice-small-fp16.gguf 保留连字符小写（文件名）。
+Zipformer,Zipformer,面向自动语音识别（ASR）的编码器架构（k2-fsa/icefall 开源实现），本仓库 KWS 案例基于它微调实现关键词识别。,KWS 模型选择：Zipformer。,通用,错误写法(勿用): zipformer / ZipFormer / Zip-former | 首字母大写 Z（k2-fsa icefall 官方模型名 Zipformer）。模型包名 sherpa-onnx-kws-zipformer-wenetspeech-3.3M-2024-01-01 保留小写（路径/文件名）。
+Qwen2.5-1.5B,Qwen2.5-1.5B,通义千问 1.5B 大语言模型，本仓库聊天机器人案例使用的 LLM。,LLM 模型选择：Qwen2.5-1.5B。,通用,全称: Qwen2.5-1.5B-Instruct | 错误写法(勿用): qwen2.5-1.5b / Qwen2.5-1.5b / Qwen-2.5-1.5B | Qwen 首字母大写、B 大写（阿里官方模型名 Qwen2.5-1.5B）。模型文件 qwen2.5-1.5b-instruct-q5_k_m.gguf 保留小写（文件名）。
+sherpa-onnx,sherpa-onnx,语音识别/关键词唤醒/语音合成推理框架（k2-fsa 出品），本仓库 KWS/TTS/聊天机器人案例均需编译它。,编译 sherpa-onnx。,通用,错误写法(勿用): Sherpa-onnx / Sherpa-ONNX / sherpa_onnx | 全小写 + 连字符。源码目录 sherpa-onnx 保留小写（路径）。
+llama.cpp,llama.cpp,大语言模型推理框架，本仓库聊天机器人案例用于 Qwen2.5-1.5B 的本地推理。,编译 llama.cpp。,通用,错误写法(勿用): Llama.cpp / llama-cpp / LLAMA.CPP | 全小写 + 点号。源码目录 llama.cpp 保留原样（路径）。
+VLM,VLM,视觉语言模型，融合视觉与语言能力的多模态模型。,VLM（Vision-Language Model）即视觉语言模型。,通用,全称: Vision-Language Model | 错误写法(勿用): vlm / Vlm / VlM | 全大写，首次出现附全称。
+VLA,VLA,视觉-语言-动作模型，融合视觉理解、语言交互与机器人控制的端到端模型。,VLA（Vision-Language-Action Model）即视觉-语言-动作模型。,通用,全称: Vision-Language-Action Model | 错误写法(勿用): vla / Vla / VlA | 全大写，首次出现附全称。
+UVC,UVC,USB 视频类协议，USB 摄像头免驱协议。,USB 摄像头一般是免驱 UVC 协议。,通用,全称: USB Video Class | 错误写法(勿用): uvc / Uvc | 全大写。
+UAC,UAC,USB 音频类规范，USB 音频设备免驱协议。,这些设备遵循标准的 USB Audio Class（UAC）规范。,通用,全称: USB Audio Class | 错误写法(勿用): uac / Uac | 全大写，与全称 USB Audio Class 连用。
+TTL,TTL,晶体管逻辑电平，芯片直出的串口信号电平。,芯片直出为 TTL/CMOS 电平。,通用,全称: Transistor-Transistor Logic | 错误写法(勿用): ttl / Ttl | 全大写。
+RS-232,RS-232,串行通信标准，用于延长 TTL 传输距离。,可通过转换芯片变为 RS-232、RS-485 等。,通用,全称: Recommended Standard 232 | 错误写法(勿用): RS232 / rs-232 / RS 232 | 大写 RS + 连字符 + 数字。
+RS-485,RS-485,差分串行通信标准，总线舵机使用的电平。,该舵机总线需要 RS-485 电平才可正常通信。,通用,全称: Recommended Standard 485 | 错误写法(勿用): RS485 / rs-485 / RS 485 | 大写 RS + 连字符 + 数字；UART 案例正文一处写作 `RS485`（无连字符），需统一。
+WAV,WAV,波形音频文件格式，USB 音频案例录制/播放的文件格式。,录制一段音频，播放并保存为 WAV 文件。,通用,全称: Waveform Audio File Format | 错误写法(勿用): wav / Wav | 正文大写 `WAV`；文件名 `usb_mic.wav` 扩展名小写保留。
+TTFT,TTFT,首 Token 延迟，衡量模型首个输出 Token 的响应时间。,TTFT(ms)：110。,通用,全称: Time To First Token | 错误写法(勿用): ttft / Ttft | 全大写，单位 (ms)。
+TPS,TPS,每秒生成 Token 数，衡量模型解码吞吐。,Decode(TPS)：31.4。,通用,全称: Tokens Per Second | 错误写法(勿用): tps / Tps | 全大写，常写作 `Decode(TPS)`。
+fps,fps,每秒帧数，目标检测推理性能指标。,单核 120fps。,通用,全称: frames per second | 错误写法(勿用): FPS / Fps | 全小写，附数值。
