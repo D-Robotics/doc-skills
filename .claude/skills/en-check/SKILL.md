@@ -13,7 +13,7 @@ description: 英文自检：对照 glossary 和 writing-style-guide-en 检查英
 
 ### 术语一致性
 
-- 所有专有名词和术语必须与 [glossary.json](../../glossary.json) 的 `英文名称` 字段一致
+- 所有专有名词和术语必须与 [glossary.json](../../../glossary.json) 的 `英文名称` 字段一致
 - 常见错误：`microSD` 写成 `Micro SD`、`eMMC` 写成 `EMMC`、`Xburn` 写成 `XBurn`
 - 工具名：`XBurn`（非 `xburn`）、`Rufus`（首字母大写）、`RDK Studio`（带空格）、`MobaXterm`（M+X 大写）
 - 产品名：`RDK X5`、`RDK X5 Module`（带空格）
@@ -21,7 +21,7 @@ description: 英文自检：对照 glossary 和 writing-style-guide-en 检查英
 
 ### 标题类型
 
-对照 [writing-style-guide-en.md](../../writing-style-guide-en.md) §1，按页面类型检查标题风格：
+对照 [writing-style-guide-en.md](../../../writing-style-guide-en.md) §1，按页面类型检查标题风格：
 
 | 页面类型 | 标题风格 | 示例 |
 |:---|:---|:---|
@@ -36,7 +36,7 @@ description: 英文自检：对照 glossary 和 writing-style-guide-en 检查英
 
 ### Sentence case
 
-对照 [writing-style-guide-en.md](../../writing-style-guide-en.md) §2：
+对照 [writing-style-guide-en.md](../../../writing-style-guide-en.md) §2：
 
 - 所有标题和 UI 文本用 sentence case：首词 + 专有名词大写，其余小写
 - 不要用 title case：`Specifications, Schematics, and Design Resources` ❌
@@ -45,7 +45,7 @@ description: 英文自检：对照 glossary 和 writing-style-guide-en 检查英
 
 ### 语态
 
-对照 [writing-style-guide-en.md](../../writing-style-guide-en.md) §3：
+对照 [writing-style-guide-en.md](../../../writing-style-guide-en.md) §3：
 
 - 主动语态优先：`XBurn flashes the board` ✅  `The board is flashed by XBurn` ❌
 - 第二人称：`Connect the board via Type-C` ✅  `Users can connect the board` ❌

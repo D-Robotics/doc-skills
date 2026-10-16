@@ -25,7 +25,7 @@ description: 初稿生成：给背景/参考信息，按模板+写作规范+术�
 1. **定类型**：按 Diátaxis 五选一（见下表），定不了就问一句。
 2. **问最小必要信息**：只问「定骨架所必需」的（产品/设备、文档类型、目标读者、关键前提）。能推断的推断，其余缺的写 `TODO:`。
 3. **读三份 SSOT**：对应模板（骨架）+ `writing-style-guide.md` 相关章节 + `glossary.json` 涉及术语的标准写法。
-4. **写初稿**：按模板骨架填。给的事实写实；没给的写 `TODO: 缺什么`；截图用 OSS 占位路径；模板里没填的 `【】` 占位转成 `TODO:`，不留原样。
+4. **写初稿**：按模板骨架填。给的事实写实；没给的写 `TODO: 缺什么`；截图用 OSS 占位路径（路径里的 `【product】`/`【大类】`/`【步骤.png】` 是官方占位，保留）；模板里没填的正文 `【】` 占位转成 `TODO:`，不留原样。
 5. **调自检 skill 修**：按文档类型跑 `format-check` / `step-check` / `structure-check` / `term-check`（见下表），把可修的 ❌ 修掉——术语、空格、标题、列表、图片缩进、frontmatter。`structure-check` 报的 `TODO` 不修，**记进待补清单**。
 6. **出稿**：交「带 TODO 的草稿 + 待补清单」。这是**草稿**，没过门禁，不提交、不进 PR。
 
@@ -33,26 +33,26 @@ description: 初稿生成：给背景/参考信息，按模板+写作规范+术�
 
 | 文档类型 | 模板文件 | 何时用 |
 |---|---|---|
-| 快速入门 | [`quick-start.md`](../../doc-templates/quick-start.md) | 从零到跑通的最短路径 |
-| 操作指南 | [`how-to-guide.md`](../../doc-templates/how-to-guide.md) | 已会基础，完成一个具体任务 |
-| 功能概述 | [`feature-overview.md`](../../doc-templates/feature-overview.md) | 介绍功能/概念全貌，无操作步骤 |
-| 故障排查 | [`troubleshooting.md`](../../doc-templates/troubleshooting.md) | 按现象排查、根因分析 |
-| 发布说明 | [`release-notes.md`](../../doc-templates/release-notes.md) | 版本变更、新特性、已知问题 |
+| 快速入门 | [`quick-start.md`](../../../doc-templates/quick-start.md) | 从零到跑通的最短路径 |
+| 操作指南 | [`how-to-guide.md`](../../../doc-templates/how-to-guide.md) | 已会基础，完成一个具体任务 |
+| 功能概述 | [`feature-overview.md`](../../../doc-templates/feature-overview.md) | 介绍功能/概念全貌，无操作步骤 |
+| 故障排查 | [`troubleshooting.md`](../../../doc-templates/troubleshooting.md) | 按现象排查、根因分析 |
+| 发布说明 | [`release-notes.md`](../../../doc-templates/release-notes.md) | 版本变更、新特性、已知问题 |
 
 ## 读三份 SSOT（读，不抄进本 skill）
 
-以下路径都相对 **doc-skills 仓根**（skill 位于 `.claude/skills/draft-doc/`，用 `../../` 上跳）：
+以下路径都相对 **doc-skills 仓根**（skill 位于 `.claude/skills/draft-doc/`，用 `../../../` 上跳三层到仓根）：
 
-- [`doc-templates/`](../../doc-templates/) —— 骨架和章节顺序
-- [`writing-style-guide.md`](../../writing-style-guide.md) —— 操作类重点 §7 操作类文档写法 / §7.3 步骤带操作顺序，其余按文档类型读相关章节
-- [`glossary.json`](../../glossary.json) —— 涉及术语一律查「标准写法」，别凭记忆写
+- [`doc-templates/`](../../../doc-templates/) —— 骨架和章节顺序
+- [`writing-style-guide.md`](../../../writing-style-guide.md) —— 操作类重点 §7 操作类文档写法 / §7.3 步骤带操作顺序，其余按文档类型读相关章节
+- [`glossary.json`](../../../glossary.json) —— 涉及术语一律查「标准写法」，别凭记忆写
 
 ## 调 4 个自检 skill（调，不抄规则）
 
 | Skill | 什么时候跑 |
 |---|---|
 | `format-check` | 通用（中英文间距、代码块、链接、图片） |
-| `term-check` | 通用（对照 glossary） |
+| `term-check` | 通用（对照 glossary + writing-style-guide §7.12 口语表） |
 | `structure-check` | 通用（标题层级、frontmatter、模板对齐、占位符） |
 | `step-check` | 仅操作类（how-to / quick-start）；功能概述 / 发布说明不跑 |
 
@@ -73,7 +73,7 @@ description: 初稿生成：给背景/参考信息，按模板+写作规范+术�
 
 ## 交付前自检（写完后逐条过）
 
-- 正文 `grep 【` 必须**清零**——模板里没填的 `【】` 要么填实、要么转成 `TODO:`，不能原样残留（`structure-check` / CI 都不拦 `【】`，只能靠这一步清）。
+- 正文除图片 OSS 占位路径外 `grep 【` 必须**清零**——模板里没填的 `【】` 要么填实、要么转成 `TODO:`，不能原样残留（`structure-check` / CI 都不拦 `【】`，只能靠这一步清；图片 src 里的 `【product】`/`【大类】`/`【步骤.png】` 是官方占位，不算残留）。
 - 正文除 `TODO` 外，4 个自检 skill 全绿。
 - 待补清单见下，**不写进正文**。
 
@@ -97,7 +97,7 @@ description: 初稿生成：给背景/参考信息，按模板+写作规范+术�
 
 交两样东西：
 
-1. **草稿**：正文除 `TODO` 外 4 个自检 skill 全绿，且无残留 `【】`。
+1. **草稿**：正文除 `TODO` 外 4 个自检 skill 全绿，且除图片 OSS 占位路径外无残留 `【】`。
 2. **待补清单**：作为对话输出或单独文件，列全所有 `TODO` 按「谁来补」分组，让研发一眼看清还缺什么。
 
 > 你交的是「初稿」，不是「可发布稿」——技术准确性由研发兜底，TODO 由研发填，QA 实测、人审一个不少。
