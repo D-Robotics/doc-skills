@@ -7,7 +7,7 @@ description: 用词规范自检：对照 glossary.json 检查术语标准写法�
 
 # term-check — 术语与书面语自检
 
-对照 `glossary.json`（术语 SSOT，本仓库 doc-skills 根目录；在线副本 <https://raw.githubusercontent.com/D-Robotics/doc-skills/main/glossary.json>）检查术语标准写法；同时对照 [writing-style-guide §7.12](writing-style-guide.md) 的「口语 → 书面语」表检查口语化表达。
+对照 `glossary.json`（术语 SSOT，本仓库 doc-skills 根目录；在线副本 <https://raw.githubusercontent.com/D-Robotics/doc-skills/main/glossary.json>）检查术语标准写法；同时对照 [writing-style-guide §7.12](../../../writing-style-guide.md) 的「口语 → 书面语」表检查口语化表达。
 
 ## 检查规则
 
@@ -52,7 +52,7 @@ description: 用词规范自检：对照 glossary.json 检查术语标准写法�
 
 ## 书面语检查（口语 → 书面语）
 
-术语级口语（板子 → 开发板、刷机 → 烧录等）已作为「错误写法」收进 glossary.json，走上方术语检查；**表达级口语**（动词缩略、口语副词/代词、程度词等）的对照表见 [writing-style-guide §7.12](writing-style-guide.md)（本仓库根目录；在线副本 <https://raw.githubusercontent.com/D-Robotics/doc-skills/main/writing-style-guide.md>），按该表逐行扫描并提示替换为书面语。
+术语级口语（板子 → 开发板、刷机 → 烧录等）已作为「错误写法」收进 glossary.json，走上方术语检查；**表达级口语**（动词缩略、口语副词/代词、程度词等）的对照表见 [writing-style-guide §7.12](../../../writing-style-guide.md)（本仓库根目录；在线副本 <https://raw.githubusercontent.com/D-Robotics/doc-skills/main/writing-style-guide.md>），按该表逐行扫描并提示替换为书面语。
 
 ## 输出示例
 
