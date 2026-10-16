@@ -144,7 +144,7 @@ Do **not** use title case for UI controls. The industry standard (Microsoft Writ
 
 > **Why sentence case, not title case, for controls?** Two reasons. First, it is the developer-docs norm (Microsoft, Google, GitHub all use sentence case for UI labels); title case for buttons reads as marketing copy, not an interface. Second, title case collides with the glossary: a rule that says "capitalize every word" would force `NVMe`→`Nvme`, `eMMC`→`Emmc`, `RDK S100`→`Rdk S100` — all wrong. One casing rule (sentence case + glossary for proper nouns) is simpler and has no such collisions. This is consistent with §2 above and defers to the glossary exactly as §2 already does.
 >
-> **Relationship to Chinese UI-writing rules**: the Chinese guide's [操作类文档写法](writing-style-guide.md) §5.2 says UI control names are **bold** and the values chosen in them are `inline code`; it does not set an English-letter casing rule for the control labels themselves. When a Chinese operation doc names an English-labeled control, apply this sentence-case rule to that English label too. Option *values* (like `USB`, `eMMC`, `NVMe`) always follow the glossary casing — see the UI defect backlog for the workflow when the live UI shows them wrong.
+> **Relationship to Chinese UI-writing rules**: the Chinese guide's [操作类文档写法](writing-style-guide.md) §7.2 says UI control names are **bold** and the values chosen in them are `inline code`; it does not set an English-letter casing rule for the control labels themselves. When a Chinese operation doc names an English-labeled control, apply this sentence-case rule to that English label too. Option *values* (like `USB`, `eMMC`, `NVMe`) always follow the glossary casing — see the UI defect backlog for the workflow when the live UI shows them wrong.
 
 ---
 
@@ -165,7 +165,7 @@ Four conventions that most improve scannability and consistency.
 | Users can connect the board via Type-C. | Connect the board via Type-C. |
 | After the device has been detected, the flashing will begin. | Once XBurn detects the device, flashing begins. |
 
-> Active voice + "you" + present tense keeps instructions direct and short — the same posture as the Chinese UI-writing rules in [writing-style-guide.md](writing-style-guide.md) §5 (cut filler, lead with the action).
+> Active voice + "you" + present tense keeps instructions direct and short — the same posture as the Chinese UI-writing rules in [writing-style-guide.md](writing-style-guide.md) §7.4 (cut filler, lead with the action).
 
 ---
 
@@ -189,7 +189,7 @@ Docusaurus admonitions follow the GitHub / Diátaxis convention, ordered by **co
 - **No FAQ/troubleshooting in boxes.** If a dedicated page exists, link to it (for example, "see [Serial and driver issues](../troubleshooting/serial-driver)") instead of restating it inside a tip.
 - **No internal notes in the published manual.** Marks like `:::info To be confirmed` never go into the published manual — either complete the content or delete the box.
 
-> Mirrors the Chinese guide's [§7.9](writing-style-guide.md) — same five levels and criteria, so the two guides stay in sync on admonition semantics.
+> Mirrors the Chinese guide's [§7.9](writing-style-guide.md#79-提示框--admonition-用法) — same five levels and criteria, so the two guides stay in sync on admonition semantics.
 
 ---
 
