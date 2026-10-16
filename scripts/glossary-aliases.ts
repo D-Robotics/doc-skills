@@ -2,11 +2,23 @@
 // 勿手动编辑;改术语后回 doc-skills 重跑脚本,把本文件同步到 rdk-docs-mcp 的 mcp/src/。
 // 形状与 search.ts 的 SYNONYMS 一致:Record<错误写法变体, 匹配目标数组>。
 export const GLOSSARY_ALIASES: Record<string, string[]> = {
+  "canbus": [
+    "can"
+  ],
   "digua": [
     "d-robotics"
   ],
   "dnavigation": [
     "d-navigation"
+  ],
+  "gpoi": [
+    "gpio"
+  ],
+  "iic": [
+    "i2c"
+  ],
+  "llama-cpp": [
+    "llama.cpp"
   ],
   "nandflash": [
     "nand flash",
@@ -23,6 +35,9 @@ export const GLOSSARY_ALIASES: Record<string, string[]> = {
   ],
   "nosecure": [
     "non-secure"
+  ],
+  "qwen-2.5-1.5b": [
+    "qwen2.5-1.5b"
   ],
   "rdk-s100": [
     "rdk s100"
@@ -51,14 +66,26 @@ export const GLOSSARY_ALIASES: Record<string, string[]> = {
   "rdkx5": [
     "rdk x5"
   ],
+  "rs232": [
+    "rs-232"
+  ],
+  "rs485": [
+    "rs-485"
+  ],
   "secure-ohp": [
     "secure_ohp"
   ],
   "secureohp": [
     "secure_ohp"
   ],
+  "sense-voice": [
+    "sensevoice"
+  ],
   "serial_usb": [
     "serial+usb"
+  ],
+  "sherpa_onnx": [
+    "sherpa-onnx"
   ],
   "typea": [
     "type-a"
@@ -75,9 +102,8 @@ export const GLOSSARY_ALIASES: Record<string, string[]> = {
   "xmodem-fastboot": [
     "xmodem_fastboot"
   ],
-  "下载": [
-    "烧录",
-    "flashing"
+  "zip-former": [
+    "zipformer"
   ],
   "刷机": [
     "烧录",
@@ -85,6 +111,9 @@ export const GLOSSARY_ALIASES: Record<string, string[]> = {
   ],
   "地瓜": [
     "d-robotics"
+  ],
+  "板子": [
+    "开发板"
   ],
   "烧入": [
     "烧录",
