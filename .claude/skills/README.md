@@ -61,7 +61,7 @@ cp -r .claude/skills/* ~/.claude/skills/   # Claude Code 用户更新
 | `format-check` | 格式检查（中英文间距、代码块语言、图片 https、链接后缀） | 写初稿方 | 提 PR 前 |
 | `step-check` | 操作步骤检查（标题动词开头、步骤编号、异常分支 admonition） | 写初稿方 | 写操作类文档后 |
 | `structure-check` | 文档结构检查（标题层级、H1 唯一、占位符、模板对齐） | 写初稿方 | 新建文档或调整目录结构后 |
-| `term-check` | 术语一致性检查（对照 glossary） | 写初稿方 | 全文写完或修改术语相关后 |
+| `term-check` | 术语 + 书面语一致性检查（对照 glossary + writing-style-guide §7.12 口语表） | 写初稿方 | 全文写完或修改用词后 |
 | `en-check` | 英文写作规范检查（术语、标题、sentence case、语态） | TW | 写完英文文档后 |
 | `zh-en-parity` | 中英文结构对等检查（图片、链接、DocScope、步骤数） | TW | 翻译完成后 |
 | `ai-review` | AI 辅助 Review（行文逻辑、信息架构、内容质量） | TW | 人审前 |
