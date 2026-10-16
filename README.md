@@ -6,7 +6,7 @@ D-Robotics 文档团队共享的**写作工具链与规范**，面向团队所�
 
 | 路径 | 说明 |
 | --- | --- |
-| `.claude/skills/` | 7 个文档质量检查 skill（format / step / structure / term / en / zh-en-parity / ai-review），Claude Code 原生 `/skill` 调用，Copilot / Cursor 用规则文件复用 |
+| `.claude/skills/` | 1 个初稿生成 skill（draft-doc）+ 7 个文档质量检查 skill（format / step / structure / term / en / zh-en-parity / ai-review），Claude Code 原生 `/skill` 调用，Copilot / Cursor 用规则文件复用 |
 | `glossary.json` | 术语表单一事实来源（SSOT），喂 term-check / CAT 翻译记忆 / MCP 检索 / Vale |
 | `glossary.schema.json` | 术语表 schema（字段与枚举定义） |
 | `scripts/` | glossary 校验（check-glossary.js）+ 派生导出（CAT CSV / 检索别名，喂 CAT / rdk-docs-mcp） |
