@@ -36,8 +36,8 @@
 
 | ❌ 不允许 | ✅ 应该 |
 |---------|--------|
-| 使用[XBurn工具](./xburn.md)烧录固件 | 使用 [XBurn 工具](./xburn.md) 烧录固件 |
-| 详见[准入政策](admission-policy.md)第4节 | 详见 [准入政策](admission-policy.md) 第 4 节 |
+| 使用[XBurn工具](...)烧录固件 | 使用 [XBurn 工具](...) 烧录固件 |
+| 详见[准入政策](...)第4节 | 详见 [准入政策](...) 第 4 节 |
 | 参考[HBM模型](...)格式 | 参考 [HBM 模型](...) 格式 |
 
 > 链接紧贴中文时，渲染后的下划线/颜色变化会和汉字粘连，读者难以判断链接从哪到哪。加空格让链接边界清晰。
@@ -57,7 +57,7 @@
 
 | ❌ 多余空格 | ✅ 正确 |
 |--------|-----------|
-| 使用 [XBurn](./xburn.md) ，烧录固件 | 使用 [XBurn](./xburn.md)，烧录固件 |
+| 使用 [XBurn](...) ，烧录固件 | 使用 [XBurn](...)，烧录固件 |
 | 执行 `sudo reboot` 。 | 执行 `sudo reboot`。 |
 
 ---
@@ -471,7 +471,7 @@ Docusaurus 的 `:::note/info/tip/warning/danger` 沿袭 GitHub/Diátaxis 约定�
 
 ### 8.1 现阶段：报告级，人工巡检
 
-本规范的所有条款**现阶段不进 CI**——markdownlint 与 custom-checks 不检查中英文空格、标点这类微观排版（它们只拦格式可用性，见 [ci-pipeline.md](ci-pipeline.md) §2.2）。
+本规范的所有条款**现阶段不进 CI**——markdownlint 与 custom-checks 不检查中英文空格、标点这类微观排版（它们只拦格式可用性，见 ci-pipeline 规范 §2.2）。
 
 | 谁执行 | 怎么执行 |
 |--------|---------|
@@ -485,7 +485,7 @@ Docusaurus 的 `:::note/info/tip/warning/danger` 沿袭 GitHub/Diátaxis 约定�
 
 ### 8.2 未来：Vale 第三阶段落地后转 CI 报告
 
-按 [ci-pipeline.md](ci-pipeline.md) §2.2，Vale 写作规范层是**第三阶段**（优先级最低，需先沉淀术语表与风格规则）。Vale 上线后，本规范条款（中英文空格、链接间距等）转为 CI **报告**（不阻断合并），规则成熟后再从报告转阻断。在 Vale 落地前，本规范是人工巡检依据，不是 CI 门控——条款写在这里是为 Vale 提供规则源。
+按 ci-pipeline 规范 §2.2，Vale 写作规范层是**第三阶段**（优先级最低，需先沉淀术语表与风格规则）。Vale 上线后，本规范条款（中英文空格、链接间距等）转为 CI **报告**（不阻断合并），规则成熟后再从报告转阻断。在 Vale 落地前，本规范是人工巡检依据，不是 CI 门控——条款写在这里是为 Vale 提供规则源。
 
 ### 8.3 与其他规范的关系
 
@@ -493,8 +493,8 @@ Docusaurus 的 `:::note/info/tip/warning/danger` 沿袭 GitHub/Diátaxis 约定�
 |------|--------|----------|
 | [writing-baseline-rd.md](writing-baseline-rd.md) | 研发必守的**事实准确性 + 信息完整度**子集 | 本篇是上位完整版，研发基线不重复本篇条款 |
 | [glossary.json](glossary.json) | 术语**叫什么**（统一用词、大小写） | 本篇管术语**怎么排**（周围空格、标点），不管术语本身 |
-| [ci-pipeline.md](ci-pipeline.md) | CI 检查哪些、怎么拦 | 本篇说明哪些条款进 CI、哪个阶段进 |
-| [url-governance.md](url-governance.md) | 链接**指向哪里**（URL 策略） | 本篇管链接**周围怎么排**（空格），不管 URL 本身 |
+| ci-pipeline 规范 | CI 检查哪些、怎么拦 | 本篇说明哪些条款进 CI、哪个阶段进 |
+| URL 治理规范 | 链接**指向哪里**（URL 策略） | 本篇管链接**周围怎么排**（空格），不管 URL 本身 |
 
 ### 8.4 CI 规则 ↔ 规范条款对照
 
@@ -502,15 +502,15 @@ CI 不是凭空抽规矩——它查的每一条，规范里都立了对应的�
 
 | CI 查的 | 规范写法条款 | CI 执行 | 现在进 CI 没 |
 |---------|------------|--------|-----------|
-| 标题层级递进（MD001） | §7.1（标题不手写编号） | [ci-pipeline §2.2](ci-pipeline.md) | ✅ markdownlint |
-| 单 H1（MD025） | §7.1 | [ci-pipeline §2.2](ci-pipeline.md) | ✅ markdownlint |
-| 代码块标语言（MD040） | §2.3 | [ci-pipeline §2.2](ci-pipeline.md) | ✅ markdownlint |
-| 空链接（MD042） | §2 | [ci-pipeline §2.2](ci-pipeline.md) | ✅ markdownlint |
-| 图片 alt 非空（MD045） | §7.7 | [ci-pipeline §2.2](ci-pipeline.md) | ✅ markdownlint |
-| 文件名/目录名 lower-kebab-case | [url-governance §2](url-governance.md) | [ci-pipeline §2.2](ci-pipeline.md) | ✅ custom-checks |
-| frontmatter 覆盖率（title/description） | 模板 frontmatter 占位字段 | [ci-pipeline §2.2](ci-pipeline.md) | ✅ custom-checks |
-| 占位符/遗留标记 | §2.2、[baseline-rd §2.2](writing-baseline-rd.md) | [ci-pipeline §2.2](ci-pipeline.md) | ✅ custom-checks |
-| 链接不带 `.md` 后缀 | §2、[url-governance §8](url-governance.md) | docusaurus build 解析 | ✅ build（约定兜底） |
+| 标题层级递进（MD001） | §7.1（标题不手写编号） | ci-pipeline §2.2 | ✅ markdownlint |
+| 单 H1（MD025） | §7.1 | ci-pipeline §2.2 | ✅ markdownlint |
+| 代码块标语言（MD040） | §2.3 | ci-pipeline §2.2 | ✅ markdownlint |
+| 空链接（MD042） | §2 | ci-pipeline §2.2 | ✅ markdownlint |
+| 图片 alt 非空（MD045） | §7.7 | ci-pipeline §2.2 | ✅ markdownlint |
+| 文件名/目录名 lower-kebab-case | url-governance §2 | ci-pipeline §2.2 | ✅ custom-checks |
+| frontmatter 覆盖率（title/description） | 模板 frontmatter 占位字段 | ci-pipeline §2.2 | ✅ custom-checks |
+| 占位符/遗留标记 | §2.2、[baseline-rd §2.2](writing-baseline-rd.md) | ci-pipeline §2.2 | ✅ custom-checks |
+| 链接不带 `.md` 后缀 | §2、url-governance §8 | docusaurus build 解析 | ✅ build（约定兜底） |
 | 正文 emoji、列表标签语法、口语化用词 | §7.12 | 人工巡检（style-check） | ❌ 未进 |
 | 中英文空格、标点、术语大小写 | §1-§7、[glossary.json](glossary.json) | Vale（待第三阶段） | ❌ 待 Vale |
 

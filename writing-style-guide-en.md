@@ -144,7 +144,7 @@ Do **not** use title case for UI controls. The industry standard (Microsoft Writ
 
 > **Why sentence case, not title case, for controls?** Two reasons. First, it is the developer-docs norm (Microsoft, Google, GitHub all use sentence case for UI labels); title case for buttons reads as marketing copy, not an interface. Second, title case collides with the glossary: a rule that says "capitalize every word" would force `NVMe`→`Nvme`, `eMMC`→`Emmc`, `RDK S100`→`Rdk S100` — all wrong. One casing rule (sentence case + glossary for proper nouns) is simpler and has no such collisions. This is consistent with §2 above and defers to the glossary exactly as §2 already does.
 >
-> **Relationship to Chinese UI-writing rules**: the Chinese guide's [操作类文档写法](writing-style-guide.md) §5.2 says UI control names are **bold** and the values chosen in them are `inline code`; it does not set an English-letter casing rule for the control labels themselves. When a Chinese operation doc names an English-labeled control, apply this sentence-case rule to that English label too. Option *values* (like `USB`, `eMMC`, `NVMe`) always follow the glossary casing — see [ui-defect-backlog.md](ui-defect-backlog.md) for the workflow when the live UI shows them wrong.
+> **Relationship to Chinese UI-writing rules**: the Chinese guide's [操作类文档写法](writing-style-guide.md) §5.2 says UI control names are **bold** and the values chosen in them are `inline code`; it does not set an English-letter casing rule for the control labels themselves. When a Chinese operation doc names an English-labeled control, apply this sentence-case rule to that English label too. Option *values* (like `USB`, `eMMC`, `NVMe`) always follow the glossary casing — see the UI defect backlog for the workflow when the live UI shows them wrong.
 
 ---
 
@@ -173,7 +173,7 @@ Four conventions that most improve scannability and consistency.
 
 ### 4.1 Reporting level, manual review for now
 
-These rules **do not enter CI yet**. markdownlint and custom-checks do not check heading voice, capitalization, or emoji (they catch format/availability only — see [ci-pipeline.md](ci-pipeline.md) §4.2).
+These rules **do not enter CI yet**. markdownlint and custom-checks do not check heading voice, capitalization, or emoji (they catch format/availability only — see the CI pipeline spec §4.2).
 
 | Who | How |
 |-----|-----|
@@ -185,7 +185,7 @@ These rules **do not enter CI yet**. markdownlint and custom-checks do not check
 
 ### 4.2 After Vale Phase 3
 
-Per [ci-pipeline.md](ci-pipeline.md) §2.2, the Vale style layer is Phase 3 (lowest priority). This guide's rules are inputs for Vale:
+Per the CI pipeline spec §2.2, the Vale style layer is Phase 3 (lowest priority). This guide's rules are inputs for Vale:
 - **Phase 3 launch**: Vale flags title-case headings, "How to" prefixes, and emoji in headings or body text — CI **reports** (non-blocking).
 - **After rules mature and false positives shrink**: promote from report to block.
 
@@ -196,7 +196,7 @@ Per [ci-pipeline.md](ci-pipeline.md) §2.2, the Vale style layer is Phase 3 (low
 | [writing-style-guide.md](writing-style-guide.md) | Chinese typography (CJK spacing, full-width punctuation, 操作类文档写法) and language-agnostic rules (§7.12 status and results) | Sibling — this guide holds English-specific rules; language-agnostic rules are defined there and apply to both languages |
 | [glossary.json](glossary.json) | Terminology — what things are **called** and their casing (`英文名称` field) | This guide defers to the glossary for proper-noun casing (XBurn, RDK S100, NVMe); do not invent casing here |
 | [writing-baseline-rd.md](writing-baseline-rd.md) | Dev-required subset (factual accuracy, completeness) | English-style rules are **not** in the dev baseline — devs follow the baseline, docs team follows this guide |
-| [ci-pipeline.md](ci-pipeline.md) | What CI checks and blocks | §4.2 here says which English rules enter CI and when |
+| CI pipeline spec | What CI checks and blocks | §4.2 here says which English rules enter CI and when |
 
 ---
 
