@@ -104,16 +104,22 @@ Do **not** hand-write numbering prefixes (`1.2.1.1`, `1.7`) in H1. Docusaurus ge
 | `# 1.7 Download Resources Summary` | `# Download resources` |
 | `# 1.2.1.4 FAQ` | `# Flashing FAQ` *(or rephrase as a noun phrase)* |
 
-### 2.2 No emoji in headings
+### 2.2 No emoji in headings or body text
 
-Do not put emoji in headings or page titles. They break screen readers, complicate CAT translation, and render inconsistently across the TOC.
+Do not put emoji in headings, page titles, or body text. They break screen readers, complicate CAT translation, and render inconsistently across platforms and in print.
 
 | ❌ Avoid | ✅ Use |
 |---------|--------|
 | `### 🖥️ Ubuntu System Resources` | `### Ubuntu system resources` |
 | `### ⚙️ Buildroot System Resources` | `### Buildroot system resources` |
+| `- ✅ Success: the console shows ...` | `- **Success**: the console shows ...` |
+| `- ❌ Failure: the console stops at ...` | `- **Failure**: the console stops at ...` |
 
-> If a visual cue is genuinely needed, use an admonition (`:::info`) or an icon component — not a raw emoji in the heading text.
+Report status and results in words, not symbols. If the symbol can be removed without losing meaning, remove it — a following word such as "Success" already carries the information.
+
+Keep list labels grammatically parallel (all nouns or all verb phrases); do not mix nouns, questions, and colloquial phrases in one list. Avoid colloquial labels such as "what it does", "why bother", or "what you get". For the full rule, see [writing-style-guide.md](writing-style-guide.md) §7.12.
+
+> If a visual cue is genuinely needed, use an admonition (`:::info`) or an icon component — not a raw emoji in the text.
 
 ### 2.3 Sentence case for all UI text — not just headings
 
@@ -180,14 +186,14 @@ These rules **do not enter CI yet**. markdownlint and custom-checks do not check
 ### 4.2 After Vale Phase 3
 
 Per [ci-pipeline.md](ci-pipeline.md) §2.2, the Vale style layer is Phase 3 (lowest priority). This guide's rules are inputs for Vale:
-- **Phase 3 launch**: Vale flags title-case headings, "How to" prefixes, emoji in headings — CI **reports** (non-blocking).
+- **Phase 3 launch**: Vale flags title-case headings, "How to" prefixes, and emoji in headings or body text — CI **reports** (non-blocking).
 - **After rules mature and false positives shrink**: promote from report to block.
 
 ### 4.3 Relationship to other guides
 
 | Guide | What it covers | Relationship to this one |
 |-------|---------------|--------------------------|
-| [writing-style-guide.md](writing-style-guide.md) | Chinese typography (CJK spacing, full-width punctuation, 操作类文档写法) | Sibling — Chinese-specific; this guide is English-specific; neither repeats the other |
+| [writing-style-guide.md](writing-style-guide.md) | Chinese typography (CJK spacing, full-width punctuation, 操作类文档写法) and language-agnostic rules (§7.12 status and results) | Sibling — this guide holds English-specific rules; language-agnostic rules are defined there and apply to both languages |
 | [glossary.json](glossary.json) | Terminology — what things are **called** and their casing (`英文名称` field) | This guide defers to the glossary for proper-noun casing (XBurn, RDK S100, NVMe); do not invent casing here |
 | [writing-baseline-rd.md](writing-baseline-rd.md) | Dev-required subset (factual accuracy, completeness) | English-style rules are **not** in the dev baseline — devs follow the baseline, docs team follows this guide |
 | [ci-pipeline.md](ci-pipeline.md) | What CI checks and blocks | §4.2 here says which English rules enter CI and when |
@@ -201,6 +207,7 @@ This guide is a **minimum set**, covering the rules with the biggest scannabilit
 1. Headings by type — imperative / noun-or-(-ing for process) / problem-or-question / noun phrase (§1)
 2. Sentence case for headings, titles, and **all UI text** — buttons, menus, tabs, dialog titles, card titles, sidebar, body, `alt` (§2, §2.3)
 3. Voice: active, second person, present tense, one idea per sentence (§3)
+4. Status and results in words, no emoji in headings or body, parallel list labels (§2.2)
 
 **Not yet covered** (add when Vale Phase 3 lands, on demand):
 
@@ -208,7 +215,6 @@ This guide is a **minimum set**, covering the rules with the biggest scannabilit
 - Punctuation in and around code (periods inside/outside backticks)
 - Number formatting (80 TOPS, 6-core, version strings)
 - Link text conventions ("see X" vs bare URLs)
-- List parallelism (every item starts the same part of speech)
 - Admonition usage in English docs
 
 > Same reasoning as the Chinese guide: at reporting level, more rules mean higher review cost with diminishing returns. Land the highest-impact rules first; expand as the enforcement mechanism (Vale) matures — rules and tooling grow together, avoiding "rules written, nobody enforces."
