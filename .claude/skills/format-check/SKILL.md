@@ -2,7 +2,7 @@
 name: format-check
 version: "1.0"
 category: 文档质量
-description: 格式自检：检查中英文间距、日期格式、代码块语言标注、表格格式、图片链接协议。当研发写完文档、提 PR 前使用本 skill 检查排版格式。
+description: 格式自检：检查中英文间距、日期格式、代码块语言标注、表格格式、图片链接协议、正文符号（emoji）。当研发写完文档、提 PR 前使用本 skill 检查排版格式。
 ---
 
 # format-check — 格式自检
@@ -43,6 +43,14 @@ description: 格式自检：检查中英文间距、日期格式、代码块语�
 - 图片 URL 必须用 `https://`：`https://rdk-doc.oss-cn-beijing.aliyuncs.com/...` ✅
 - 不要用 `http://`：`http://rdk-doc.oss-cn-beijing.aliyuncs.com/...` ❌
 
+### 正文符号
+
+- 正文不用 emoji 表达状态、结果或提示：`- ✅ 成功标志：串口出现 SUCCESS` ❌ → `- **成功**：串口出现 SUCCESS` ✅
+- 扫描范围：`U+1F300–U+1FAFF`、`U+2600–U+27BF`，以及 `✅`（U+2705）、`❌`（U+274C）
+- 判据：删掉符号后句子仍成立，就用文字——符号是冗余；不成立说明符号在替代文字承载信息，应补文字而不是保留符号
+- 需要视觉提示时用 admonition（`:::note` / `:::warning`），不用裸 emoji
+- 依据：写作规范 §7.12
+
 ## 忽略
 
 - 代码块内的内容
@@ -56,9 +64,10 @@ description: 格式自检：检查中英文间距、日期格式、代码块语�
 ```
 
 ```text
-❌ format-check 发现 5 处格式问题：
+❌ format-check 发现 6 处格式问题：
 
   8: 中英文之间缺空格 "使用XBurn烧录" → "使用 XBurn 烧录"
+  12: 正文 emoji "✅ 成功标志：..." → "**成功**：..."
   15: 代码块未标注语言，第 15 行
   23: 日期格式错误 "2026年8月4日" → "2026-08-04"
   31: 相对链接缺少后缀 "./quick-start" → "./quick-start.md"

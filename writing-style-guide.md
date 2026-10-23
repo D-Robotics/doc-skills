@@ -511,7 +511,7 @@ CI 不是凭空抽规矩——它查的每一条，规范里都立了对应的�
 | frontmatter 覆盖率（title/description） | 模板 frontmatter 占位字段 | ci-pipeline §2.2 | ✅ custom-checks |
 | 占位符/遗留标记 | §2.2、[baseline-rd §2.2](writing-baseline-rd.md) | ci-pipeline §2.2 | ✅ custom-checks |
 | 链接不带 `.md` 后缀 | §2、url-governance §8 | docusaurus build 解析 | ✅ build（约定兜底） |
-| 正文 emoji、列表标签语法、口语化用词 | §7.12 | 人工巡检（style-check） | ❌ 未进 |
+| 正文 emoji、列表标签语法、口语化用词 | §7.12 | format-check（机械）+ ai-review（判断） | ❌ 未进 |
 | 中英文空格、标点、术语大小写 | §1-§7、[glossary.json](glossary.json) | Vale（待第三阶段） | ❌ 待 Vale |
 
 > **三档，不是两档**：① markdownlint 5 条 + custom-checks（上表前 8 行）现已在 CI 拦合并；② 中英文空格/标点/术语大小写等写作风格条款（末行）待 Vale 第三阶段转报告、成熟后转阻断；③ 链接后缀靠约定 + build 解析兜底（markdownlint 不查）。规范立规矩在前，CI 按可机器判定性分档跟进——不是所有规矩都进 CI，进 CI 的都有规范对应条款。
