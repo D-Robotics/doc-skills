@@ -463,7 +463,7 @@ Docusaurus 的 `:::note/info/tip/warning/danger` 沿袭 GitHub/Diátaxis 约定�
 
 > 行业依据：Microsoft Style Guide 明确建议文本类沟通中不用 emoji、不用 emoji 代替词语，并指出 emoji 在本地化版本中可能被剥离、各读屏软件的支持参差不齐。emoji 在黑白打印和字体缺字形时也会失去区分度。若确需视觉提示，用 admonition（`:::note`/`:::warning`），不用裸 emoji。
 >
-> 这条与 §7.11 配套：状态和异常都用规范的结构表达，不用临时符号。英文侧同名条款见 [writing-style-guide-en.md](writing-style-guide-en.md) §2.2。
+> 这条与 §7.11 配套：状态和异常都用规范的结构表达，不用临时符号。与 §7.12 也配套——§7.12 管词怎么换（口语替换），本节管标签和状态怎么组织，扫描时两边都要过。英文侧同名条款见 [writing-style-guide-en.md](writing-style-guide-en.md) §2.2。
 
 ---
 
