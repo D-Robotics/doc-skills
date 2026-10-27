@@ -32,3 +32,16 @@ glossary.json 是术语 SSOT，喂 term-check / CAT 翻译记忆 / MCP 检索 / 
   node scripts/glossary-to-csv.js -o scripts/glossary.csv
   node scripts/glossary-aliases.js
   ```
+
+### 找词库缺口：候选扫描
+
+term-check 只查「已收录的词写错了」，查不出「该收还没收的词」。补缺用扫描脚本：
+
+```bash
+node scripts/scan-term-candidates.js <文档目录> --min-count 5 --min-files 3 -o /tmp/term-candidates.md
+```
+
+- 只收中文语境里夹带的英文词（左右 4 字符内有汉字），纯英文表格头、代码、路径、URL 自动跳过。
+- 输出三节：**A. 大小写不一致**（按「出现次数 × 少数写法占比」排序，失衡高的才是真混用）、**B. 高频未收录词**、**C. 错误写法命中**。
+- 已收录的标准写法 / 英文名称 / 错误写法不再列为候选。
+- 报告只是候选池：按上面「提案」档开 PR，`研发确认` 拿不准就填「待确认」，不直接改词库。
