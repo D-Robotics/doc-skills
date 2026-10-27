@@ -69,6 +69,12 @@ cp -r .claude/skills/* ~/.claude/skills/   # Claude Code 用户更新
 
 > 写初稿方 = 研发 / AE / 产品（TW 写初稿时也是这一档）。写初稿用 `draft-doc`（它会自调下面 4 个自检 skill）；手写初稿直接跑 format-check / step-check / structure-check / term-check 这 4 个就够。en-check / zh-en-parity / ai-review 是翻译线和人审的工具，研发不用管。
 
+## 中英文分工
+
+- **`draft-doc` 只出中文初稿**：不生成英文稿，也不做中译英。
+- 英文产出走 TW 线：**中文定稿 → 翻译 → `en-check` → `zh-en-parity`**。`en-check` 查英文写作规范，`zh-en-parity` 查中英结构对等，两者都只做检查、不生成初稿。
+- 需要英文初稿时不要调 `draft-doc` 硬写——先出中文、走翻译线，否则英文侧的术语（glossary）和结构对等都没人兜。
+
 ## 依赖
 
 - `draft-doc` 依赖 `doc-templates/`、`writing-style-guide.md`、`glossary.json`，并调用 4 个写初稿方自检 skill（format / step / structure / term）
