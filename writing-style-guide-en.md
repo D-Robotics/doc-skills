@@ -117,7 +117,7 @@ Do not put emoji in headings, page titles, or body text. They break screen reade
 
 Report status and results in words, not symbols. If the symbol can be removed without losing meaning, remove it — a following word such as "Success" already carries the information.
 
-Keep list labels grammatically parallel (all nouns or all verb phrases); do not mix nouns, questions, and colloquial phrases in one list. Avoid colloquial labels such as "what it does", "why bother", or "what you get". For the full rule, see [writing-style-guide.md](writing-style-guide.md) §7.12.
+Keep list labels grammatically parallel (all nouns or all verb phrases); do not mix nouns, questions, and colloquial phrases in one list. Avoid colloquial labels such as "what it does", "why bother", or "what you get". For the full rule, see [writing-style-guide.md](writing-style-guide.md) §7.13.
 
 > If a visual cue is genuinely needed, use an admonition (`:::info`) or an icon component — not a raw emoji in the text.
 
@@ -193,7 +193,7 @@ Per the CI pipeline spec §2.2, the Vale style layer is Phase 3 (lowest priority
 
 | Guide | What it covers | Relationship to this one |
 |-------|---------------|--------------------------|
-| [writing-style-guide.md](writing-style-guide.md) | Chinese typography (CJK spacing, full-width punctuation, 操作类文档写法) and language-agnostic rules (§7.12 status and results) | Sibling — this guide holds English-specific rules; language-agnostic rules are defined there and apply to both languages |
+| [writing-style-guide.md](writing-style-guide.md) | Chinese typography (CJK spacing, full-width punctuation, 操作类文档写法) and language-agnostic rules (§7.13 status and results) | Sibling — this guide holds English-specific rules; language-agnostic rules are defined there and apply to both languages |
 | [glossary.json](glossary.json) | Terminology — what things are **called** and their casing (`英文名称` field) | This guide defers to the glossary for proper-noun casing (XBurn, RDK S100, NVMe); do not invent casing here |
 | [writing-baseline-rd.md](writing-baseline-rd.md) | Dev-required subset (factual accuracy, completeness) | English-style rules are **not** in the dev baseline — devs follow the baseline, docs team follows this guide |
 | CI pipeline spec | What CI checks and blocks | §4.2 here says which English rules enter CI and when |
