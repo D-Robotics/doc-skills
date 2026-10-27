@@ -14,9 +14,10 @@ description: 英文自检：对照 glossary 和 writing-style-guide-en 检查英
 ### 术语一致性
 
 - 所有专有名词和术语必须与 [glossary.json](../../../glossary.json) 的 `英文名称` 字段一致
-- 常见错误：`microSD` 写成 `Micro SD`、`eMMC` 写成 `EMMC`、`Xburn` 写成 `XBurn`
+- 同时扫 [glossary.json](../../../glossary.json) 的 `错误写法` 字段：命中即报。该字段混有英文变体和中文误写（`Xburn`、`EMMC`、`RDKS100`、`Micro SD 存储卡`）
+- 常见错误（以 glossary 为准）：`microSD card` 写成 `Micro SD`、`eMMC` 写成 `EMMC`、`XBurn` 写成 `Xburn`
 - 工具名：`XBurn`（非 `xburn`）、`Rufus`（首字母大写）、`RDK Studio`（带空格）、`MobaXterm`（M+X 大写）
-- 产品名：`RDK X5`、`RDK X5 Module`（带空格）
+- 产品名：`RDK S100`、`RDK S600`、`RDK X5`、`RDK X5 Module`（带空格，不写成 `RDKS100` / `RDK-X5`）
 - 命令：`rdk-miniboot-update`（全小写+连字符）
 
 ### 标题类型
