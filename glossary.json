@@ -1,6 +1,6 @@
 {
   "$schema": "./glossary.schema.json",
-  "$comment": "文档团队术语表数据 (Glossary Data)。单一事实来源。字段定义见 glossary.schema.json。改术语只改本文件;文档站渲染与 CAT 导入均从本文件生成。",
+  "$comment": "文档团队术语表数据 (Glossary Data)。单一事实来源。字段定义见 glossary.schema.json。改术语只改本文件;文档站渲染与检索别名均从本文件生成。",
   "glossary": [
     {
       "分类": "产品命名",
