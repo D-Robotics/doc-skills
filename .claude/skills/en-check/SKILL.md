@@ -33,7 +33,7 @@ description: 英文自检：对照 glossary 和 writing-style-guide-en 检查英
 
 - 不要用 `How to` 前缀：`How to flash` ❌ → `Flash the system image` ✅
 - 不要用 `-ing` 做 how-to 标题：`Flashing the system image` ❌
-- 不要在标题里加 emoji
+- 不要在标题或正文里加 emoji，状态和结果用文字：`- ✅ Success: ...` ❌ → `- **Success**: ...` ✅（依据 [writing-style-guide-en §2.2](writing-style-guide-en.md)）
 
 ### Sentence case
 
