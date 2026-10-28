@@ -1,6 +1,6 @@
 {
   "$schema": "./glossary.schema.json",
-  "$comment": "文档团队术语表数据 (Glossary Data)。单一事实来源。字段定义见 glossary.schema.json。改术语只改本文件;文档站渲染与 CAT 导入均从本文件生成。",
+  "$comment": "文档团队术语表数据 (Glossary Data)。单一事实来源。字段定义见 glossary.schema.json。改术语只改本文件;文档站渲染与检索别名均从本文件生成。",
   "glossary": [
     {
       "分类": "产品命名",
@@ -1022,6 +1022,66 @@
       "研发确认": "行业",
       "状态": "现行",
       "备注": "全小写，附数值。"
+    },
+    {
+      "分类": "行业通用",
+      "标准写法": "sensor",
+      "错误写法": ["Sensor"],
+      "英文名称": "image sensor",
+      "全称": "image sensor",
+      "简称": "",
+      "释义": "图像传感器，Camera 链路上负责采集图像的器件。",
+      "上下文例句": "若当前镜像中的 sensor 插件未开启 CAM_DIAG，注入后不会收到回调。",
+      "适用范围": "Camera",
+      "来源": "行业通用（ADI / NXP / Linux 内核 image sensor 用法）",
+      "研发确认": "行业",
+      "状态": "草案",
+      "备注": "中文正文作普通名词小写 `sensor`（英文同为小写 `image sensor`）；固定搭配 `Camera Sensor` 为 D-Robotics 产品/UI 用语，保留首字母大写；代码标识符与路径 `sensor_index`、`drivers/sensor/` 原样不改。"
+    },
+    {
+      "分类": "行业通用",
+      "标准写法": "解串器",
+      "错误写法": [],
+      "英文名称": "deserializer",
+      "全称": "Deserializer",
+      "简称": "",
+      "释义": "SerDes 链路中把串行信号还原为并行信号（如 CSI-2）的器件，与串行器成对使用。",
+      "上下文例句": "SerDes sensor 连接解串器的端口由 `-l` 指定。",
+      "适用范围": "Camera",
+      "来源": "行业通用（ADI / NXP / Linux 内核 GMSL deserializer）",
+      "研发确认": "行业",
+      "状态": "现行",
+      "备注": "中文正文统一写「解串器」，英文写 `deserializer`；`deserial` 只是代码里的插件与目录名（`drivers/deserial/`），不是英文术语，不写进中文正文。"
+    },
+    {
+      "分类": "行业通用",
+      "标准写法": "串行器",
+      "错误写法": [],
+      "英文名称": "serializer",
+      "全称": "Serializer",
+      "简称": "",
+      "释义": "SerDes 链路中把并行信号转为串行信号发送的器件，通常位于 Camera 模组侧。",
+      "上下文例句": "Camera 模组上的串行器通过同轴线把数据送到解串器。",
+      "适用范围": "Camera",
+      "来源": "行业通用（ADI / NXP / Linux 内核 GMSL serializer）",
+      "研发确认": "行业",
+      "状态": "现行",
+      "备注": "中文正文写「串行器」，英文写 `serializer`；首次出现可用「串行器（Serializer）」括注。"
+    },
+    {
+      "分类": "行业通用",
+      "标准写法": "SerDes",
+      "错误写法": ["Serdes", "serdes", "SERDES"],
+      "英文名称": "SerDes",
+      "全称": "Serializer/Deserializer",
+      "简称": "SerDes",
+      "释义": "串行器/解串器成对链路的总称，Camera 侧常见 GMSL、FPD-Link 等。",
+      "上下文例句": "SerDes sensor 通过同轴线连接解串器。",
+      "适用范围": "Camera",
+      "来源": "行业通用",
+      "研发确认": "行业",
+      "状态": "现行",
+      "备注": "S、D 大写，其余小写；中文正文可写「SerDes 链路」「SerDes sensor」。代码中的小写 `serdes` 前缀与路径原样保留。"
     }
   ]
 }

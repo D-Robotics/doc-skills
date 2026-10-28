@@ -2,7 +2,7 @@
 /**
  * glossary.json → 检索别名 JSON 派生脚本(单一数据源,纯 Node 标准库,无外部依赖)
  *
- * 单一事实来源仍是 glossary.json;本脚本是它的下游派生态(同 glossary-to-csv.js)。
+ * 单一事实来源仍是 glossary.json;本脚本是它的下游派生态。
  * 改术语只改 JSON,重跑本脚本重生成 `glossary-aliases.json`,不手动维护第二份。
  *
  * 对接研发自建 rdk-docs-mcp 的 mcp/src/search.ts:
