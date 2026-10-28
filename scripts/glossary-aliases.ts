@@ -105,6 +105,9 @@ export const GLOSSARY_ALIASES: Record<string, string[]> = {
   "zip-former": [
     "zipformer"
   ],
+  "优盘": [
+    "u 盘"
+  ],
   "刷机": [
     "烧录",
     "flashing"
