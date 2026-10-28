@@ -6,12 +6,19 @@ D-Robotics 文档团队共享的**写作工具链与规范**，面向团队所�
 
 | 路径 | 说明 |
 | --- | --- |
-| `.claude/skills/` | 7 个文档质量检查 skill（format / step / structure / term / en / zh-en-parity / ai-review），Claude Code 原生 `/skill` 调用，Copilot / Cursor 用规则文件复用 |
+| `.claude/skills/` | 1 个初稿生成 skill（draft-doc）+ 7 个文档质量检查 skill（format / step / structure / term / en / zh-en-parity / ai-review），Claude Code 原生 `/skill` 调用，Copilot / Cursor 用规则文件复用 |
 | `glossary.json` | 术语表单一事实来源（SSOT），喂 term-check / CAT 翻译记忆 / MCP 检索 / Vale |
 | `glossary.schema.json` | 术语表 schema（字段与枚举定义） |
 | `scripts/` | glossary 校验（check-glossary.js）+ 派生导出（CAT CSV / 检索别名，喂 CAT / rdk-docs-mcp） |
 | `doc-templates/` | 5 份 Diátaxis 文档模板（feature-overview / how-to / quick-start / release-notes / troubleshooting） |
-| `writing-style-guide.md` / `-en.md` | 中英文写作规范 |
+| `writing-style-guide.md` / `-en.md` | 中英文写作规范（完整版） |
+| `writing-baseline-rd.md` | 研发侧必守基线，从写作规范中挑出的子集，给研发 / AE 写初稿用 |
+
+## 中英文分工
+
+- **`draft-doc` 只出中文初稿**，不生成英文稿，也不做中译英。
+- 英文产出走 TW 线：**中文定稿 → 翻译 → `en-check`（英文写作规范）→ `zh-en-parity`（中英结构对等）**。两个 skill 只做检查，不生成初稿。
+- 所以写初稿方（研发 / AE / 产品）只需 `draft-doc` + 4 个自检 skill；碰到英文由 TW 接手。
 
 ## 协作
 
