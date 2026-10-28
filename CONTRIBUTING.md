@@ -1,6 +1,8 @@
 # 贡献指南
 
-本仓库改动统一走 **GitHub PR**，main 分支受保护：需 PR + 至少 1 个 approval + CI 通过，禁止直接 push main。
+本仓库改动统一走 **GitHub PR**，main 分支受保护：需 PR + `glossary-check` CI 通过，禁止直接 push main。
+
+> approval 不是硬性门禁，但**不取消 review**：术语定稿仍按下表三档走，改 glossary.json 的 PR 请在合入前请 IA 复核。
 
 ## 提交流程
 
@@ -17,7 +19,7 @@ glossary.json 是术语 SSOT，喂 term-check / CAT 翻译记忆 / MCP 检索 / 
 | --- | --- | --- |
 | 查 | 任何人 | 直接查 |
 | 提案（新增术语 / 改英文名称 / 补错误写法） | 任何人都可，TW 尤其积极（翻译一线天天撞新词） | 开 PR；`研发确认` 未定的填「待确认」或「❌」 |
-| 定稿（标准写法 / 释义 / 研发确认落定） | IA | PR review（开 PR 后手动请 IA + TW 双 reviewer，定稿由 IA 把关） |
+| 定稿（标准写法 / 释义 / 研发确认落定） | IA | PR review（开 PR 后手动请 IA + TW 双 reviewer；GitHub 不强制 approval，靠本流程约束） |
 
 **规则**：
 
