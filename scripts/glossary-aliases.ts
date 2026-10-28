@@ -112,6 +112,9 @@ export const GLOSSARY_ALIASES: Record<string, string[]> = {
   "地瓜": [
     "d-robotics"
   ],
+  "板子": [
+    "开发板"
+  ],
   "烧入": [
     "烧录",
     "flashing"
