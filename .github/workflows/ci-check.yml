@@ -14,3 +14,7 @@ jobs:
           node-version: '20'
       - name: Validate glossary.json
         run: node scripts/check-glossary.js
+      - name: Check derived files are in sync
+        run: |
+          node scripts/glossary-aliases.js
+          git diff --exit-code -- scripts/glossary-aliases.json scripts/glossary-aliases.ts
