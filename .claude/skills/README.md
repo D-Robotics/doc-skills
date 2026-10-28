@@ -1,6 +1,6 @@
-# Skills — 文档质量检查工具
+# Skills — 文档生产与质量检查工具
 
-每个 skill 是独立的质量检查维度（检查规则 + 输出模板）。以下工具均可用，首选 Claude Code（原生支持 `/skill-name` 调用），其他工具用规则文件方式复用。
+每个 skill 是独立的工作单元（检查规则 + 输出模板；`draft-doc` 是初稿生成，其余是质量检查）。以下工具均可用，首选 Claude Code（原生支持 `/skill-name` 调用），其他工具用规则文件方式复用。
 
 ## 各工具使用方式
 
@@ -58,6 +58,7 @@ cp -r .claude/skills/* ~/.claude/skills/   # Claude Code 用户更新
 
 | Skill | 用途 | 谁跑 | 使用时机 |
 |:---|:---|:---|:---|
+| `draft-doc` | 初稿生成（按模板+规范+术语表写初稿，写完自调下面 4 个自检 skill 修正） | 写初稿方 | 开始写初稿时 |
 | `format-check` | 格式检查（中英文间距、代码块语言、图片 https、链接后缀） | 写初稿方 | 提 PR 前 |
 | `step-check` | 操作步骤检查（标题动词开头、步骤编号、异常分支 admonition） | 写初稿方 | 写操作类文档后 |
 | `structure-check` | 文档结构检查（标题层级、H1 唯一、占位符、模板对齐） | 写初稿方 | 新建文档或调整目录结构后 |
@@ -66,10 +67,17 @@ cp -r .claude/skills/* ~/.claude/skills/   # Claude Code 用户更新
 | `zh-en-parity` | 中英文结构对等检查（图片、链接、DocScope、步骤数） | TW | 翻译完成后 |
 | `ai-review` | AI 辅助 Review（行文逻辑、信息架构、内容质量） | TW | 人审前 |
 
-> 写初稿方 = 研发 / AE / 产品（TW 写初稿时也是这一档）。跑 format-check / step-check / structure-check / term-check 这 4 个就够，en-check / zh-en-parity / ai-review 是翻译线和人审的工具，研发不用管。
+> 写初稿方 = 研发 / AE / 产品（TW 写初稿时也是这一档）。写初稿用 `draft-doc`（它会自调下面 4 个自检 skill）；手写初稿直接跑 format-check / step-check / structure-check / term-check 这 4 个就够。en-check / zh-en-parity / ai-review 是翻译线和人审的工具，研发不用管。
+
+## 中英文分工
+
+- **`draft-doc` 只出中文初稿**：不生成英文稿，也不做中译英。
+- 英文产出走 TW 线：**中文定稿 → 翻译 → `en-check` → `zh-en-parity`**。`en-check` 查英文写作规范，`zh-en-parity` 查中英结构对等，两者都只做检查、不生成初稿。
+- 需要英文初稿时不要调 `draft-doc` 硬写——先出中文、走翻译线，否则英文侧的术语（glossary）和结构对等都没人兜。
 
 ## 依赖
 
+- `draft-doc` 依赖 `doc-templates/`、`writing-style-guide.md`、`glossary.json`，并调用 4 个写初稿方自检 skill（format / step / structure / term）
 - `en-check` 依赖 `glossary.json` 和 `writing-style-guide-en.md`
 - `zh-en-parity` 依赖 `glossary.json`
 - 建议 clone 整个仓，skills 内的相对路径按此结构解析
