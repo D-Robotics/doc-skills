@@ -556,20 +556,48 @@ function walk(dir, out) {
   }
 }
 
+function gitOut(args) {
+  return execSync(`git ${args}`, {
+    encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'],
+  });
+}
+
+// 拿不到基准必须让调用方知道，绝不能返回空数组假装「没有改动」。
+// CI 里 checkout 的克隆往往是浅的，三点 diff 依赖 merge-base，
+// 浅克隆下 merge-base 可能算不出来，因此逐级降级并说明用了哪种。
 function changedFiles(base) {
-  const out = [];
-  try {
-    const raw = execSync(`git diff --name-only --diff-filter=ACMR ${base}...HEAD`, {
-      encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'],
-    });
-    out.push(...raw.split('\n').filter(Boolean));
-  } catch (e) {
-    // 返回 null 而不是 []：拿不到基准 ≠ 没有改动。返回空数组会让脚本
-    // 扫 0 个文件、报 0 条问题、退出 0，看起来像「检查通过」。
-    console.error(`[doc-quality] 无法获取改动文件（${base}）: ${e.message}`);
-    return null;
+  const attempts = [
+    ['三点 diff（merge-base）', `${base}...HEAD`],
+    ['合并提交的第一父（HEAD^1）', null],   // 仅当 HEAD 是合并提交
+    ['两点 diff（仅当上面都不可用）', `${base} HEAD`],
+  ];
+
+  let lastErr = '';
+  for (const [label, range] of attempts) {
+    try {
+      let args;
+      if (range === null) {
+        const parents = gitOut('rev-list --parents -n1 HEAD').trim().split(/\s+/).length - 1;
+        if (parents < 2) continue;
+        args = 'diff --name-only --diff-filter=ACMR HEAD^1 HEAD';
+      } else {
+        args = `diff --name-only --diff-filter=ACMR ${range}`;
+      }
+      const raw = gitOut(args);
+      if (label !== attempts[0][0]) {
+        console.error(`[doc-quality] 三点 diff 不可用，已降级为「${label}」确认改动范围（结果可能偏多）`);
+      }
+      return raw.split('\n').filter(Boolean).filter(f => DOC_EXT.has(path.extname(f)));
+    } catch (e) {
+      lastErr = `${label}: ${(e.stderr || e.message || '').toString().trim()}`;
+    }
   }
-  return out.filter(f => DOC_EXT.has(path.extname(f)));
+
+  console.error('[doc-quality] 无法获取改动文件，所有取法均失败：');
+  console.error(`  ${lastErr}`);
+  console.error(`  基准 ref ${base} → ${(() => { try { return gitOut(`rev-parse --short ${base}`).trim(); } catch { return '无法解析'; } })()}`);
+  console.error(`  HEAD → ${(() => { try { return gitOut('log --oneline -1').trim(); } catch { return '无法解析'; } })()}`);
+  return null;
 }
 
 function isEnglishDoc(p) {
