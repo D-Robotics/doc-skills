@@ -33,8 +33,30 @@ runs:
     - name: Ensure base ref is available
       shell: bash
       run: |
-        if [ "${{ inputs.changed-only }}" = "true" ]; then
-          git fetch --no-tags --depth=200 origin "${GITHUB_BASE_REF:-main}" || true
+        set -uo pipefail
+        [ "${{ inputs.changed-only }}" = "true" ] || exit 0
+
+        BASE="${{ inputs.base }}"
+        if [ -z "$BASE" ]; then
+          BASE="origin/${GITHUB_BASE_REF:-main}"
+        fi
+
+        # 已经解析得到就跳过（调用方可能已 fetch 过）
+        if git rev-parse --verify --quiet "${BASE}^{commit}" >/dev/null; then
+          exit 0
+        fi
+
+        # 关键：必须指定目标 refspec。`git fetch origin main` 只写 FETCH_HEAD，
+        # 不会创建 origin/main，后面 `git diff origin/main...HEAD` 就无从比较。
+        BRANCH="${BASE#origin/}"
+        REFSPEC="+refs/heads/${BRANCH}:refs/remotes/origin/${BRANCH}"
+        git fetch --no-tags --depth=200 origin "$REFSPEC" \
+          || git fetch --no-tags --unshallow origin "$REFSPEC" \
+          || git fetch --no-tags origin "$REFSPEC" \
+          || true
+
+        if ! git rev-parse --verify --quiet "${BASE}^{commit}" >/dev/null; then
+          echo "::error::doc-quality 无法准备基线 ref ${BASE}，本次检查未执行"
         fi
     - name: Run doc-quality
       shell: bash
@@ -68,8 +90,13 @@ runs:
         code=$?
         set -e
 
-        if [ $code -ne 0 ] && [ "${{ inputs.advisory }}" = "true" ]; then
+        if [ $code -eq 2 ]; then
+          echo "::warning::doc-quality 未执行（基线不可用或参数错误），检查结果不可信"
+        elif [ $code -ne 0 ]; then
           echo "::warning::doc-quality 发现问题（advisory 模式，不阻断）"
+        fi
+
+        if [ $code -ne 0 ] && [ "${{ inputs.advisory }}" = "true" ]; then
           exit 0
         fi
         exit $code

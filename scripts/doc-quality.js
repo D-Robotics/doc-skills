@@ -564,7 +564,10 @@ function changedFiles(base) {
     });
     out.push(...raw.split('\n').filter(Boolean));
   } catch (e) {
+    // 返回 null 而不是 []：拿不到基准 ≠ 没有改动。返回空数组会让脚本
+    // 扫 0 个文件、报 0 条问题、退出 0，看起来像「检查通过」。
     console.error(`[doc-quality] 无法获取改动文件（${base}）: ${e.message}`);
+    return null;
   }
   return out.filter(f => DOC_EXT.has(path.extname(f)));
 }
@@ -606,6 +609,10 @@ function main() {
   let files = [];
   if (opts.changedOnly) {
     files = changedFiles(opts.base);
+    if (files === null) {
+      console.error('[doc-quality] 检查未执行：无法确定改动文件。请确认基线 ref 存在（CI 中通常是 origin/<目标分支>，需要先 fetch 成远程跟踪分支）。');
+      process.exit(2);
+    }
   } else if (opts.paths.length) {
     for (const p of opts.paths) {
       const st = fs.statSync(p, { throwIfNoEntry: false });
