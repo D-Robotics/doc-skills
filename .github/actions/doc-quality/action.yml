@@ -1,0 +1,75 @@
+name: doc-quality
+description: 文档质量确定性规则检查（与 doc-skills 的 skill 同源），在 PR 阶段拦截新增的机械性缺陷。
+
+inputs:
+  changed-only:
+    description: 只检查 PR 改动文件
+    required: false
+    default: 'true'
+  base:
+    description: git 基线 ref，默认 origin/<PR 目标分支>
+    required: false
+    default: ''
+  baseline:
+    description: 存量问题基线文件（相对调用仓根目录）；为空则不使用基线
+    required: false
+    default: ''
+  paths:
+    description: 检查路径（changed-only=false 时生效），默认 docs
+    required: false
+    default: 'docs'
+  fail-on-warn:
+    description: warn 是否导致失败
+    required: false
+    default: 'false'
+  advisory:
+    description: 只报告不阻断（首次接入期建议 true）
+    required: false
+    default: 'false'
+
+runs:
+  using: composite
+  steps:
+    - name: Ensure base ref is available
+      shell: bash
+      run: |
+        if [ "${{ inputs.changed-only }}" = "true" ]; then
+          git fetch --no-tags --depth=200 origin "${GITHUB_BASE_REF:-main}" || true
+        fi
+    - name: Run doc-quality
+      shell: bash
+      working-directory: ${{ github.workspace }}
+      run: |
+        set -uo pipefail
+        ACTION_ROOT="${{ github.action_path }}"
+        SCRIPT="$ACTION_ROOT/../../../scripts/doc-quality.js"
+        GLOSSARY="$ACTION_ROOT/../../../glossary.json"
+
+        BASE="${{ inputs.base }}"
+        if [ -z "$BASE" ]; then
+          BASE="origin/${GITHUB_BASE_REF:-main}"
+        fi
+
+        args=(--github --quiet)
+        if [ "${{ inputs.changed-only }}" = "true" ]; then
+          args+=(--changed-only --base "$BASE")
+        else
+          args+=("${{ inputs.paths }}")
+        fi
+        if [ -n "${{ inputs.baseline }}" ]; then
+          args+=(--baseline "${{ inputs.baseline }}")
+        fi
+        if [ "${{ inputs.fail-on-warn }}" = "true" ]; then
+          args+=(--fail-on-warn)
+        fi
+
+        set +e
+        node "$SCRIPT" "${args[@]}" --glossary "$GLOSSARY"
+        code=$?
+        set -e
+
+        if [ $code -ne 0 ] && [ "${{ inputs.advisory }}" = "true" ]; then
+          echo "::warning::doc-quality 发现问题（advisory 模式，不阻断）"
+          exit 0
+        fi
+        exit $code
