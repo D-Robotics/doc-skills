@@ -33,6 +33,7 @@ function parseArgs(argv) {
     writeBaseline: false,
     json: false,
     github: false,
+    fix: false,
     quiet: false,
     failOnWarn: false,
     maxWarn: null,
@@ -46,6 +47,7 @@ function parseArgs(argv) {
     else if (a === '--write-baseline') opts.writeBaseline = true;
     else if (a === '--json') opts.json = true;
     else if (a === '--github') opts.github = true;
+    else if (a === '--fix') opts.fix = true;
     else if (a === '--quiet') opts.quiet = true;
     else if (a === '--fail-on-warn') opts.failOnWarn = true;
     else if (a === '--max-warn') opts.maxWarn = parseInt(argv[++i], 10);
@@ -66,6 +68,7 @@ function usage() {
   --write-baseline        生成/更新基线文件（需配合 --baseline）
   --json                  输出 JSON
   --github                输出 GitHub Actions annotation（::error / ::warning）
+  --fix                   直接修复可自动修复的问题（仅正文，跳过代码块、行内代码与 URL）
   --quiet                 只输出汇总
   --fail-on-warn          warn 也返回非零
   --max-warn <n>          warn 超过 n 条则失败
@@ -383,6 +386,156 @@ function findTerm(line, wrong) {
   return m ? { index: m.index, length: m[0].length, text: m[0] } : null;
 }
 
+// ---------- 自动修复 ----------
+
+// 不参与修复的区间：行内代码、URL、HTML 标签、MDX 表达式
+const PROTECT_RES = [
+  /`[^`]*`/g,
+  /https?:\/\/[^\s)]+/g,
+  /<[^>]*>/g,
+  /\{\{?[^}]*\}?\}/g,
+];
+
+function protectedIntervals(line) {
+  const ivs = [];
+  for (const re of PROTECT_RES) {
+    re.lastIndex = 0;
+    let m;
+    while ((m = re.exec(line)) !== null) ivs.push([m.index, m.index + m[0].length]);
+  }
+  ivs.sort((a, b) => a[0] - b[0]);
+  const merged = [];
+  for (const iv of ivs) {
+    const last = merged[merged.length - 1];
+    if (last && iv[0] <= last[1]) last[1] = Math.max(last[1], iv[1]);
+    else merged.push([iv[0], iv[1]]);
+  }
+  return merged;
+}
+
+/** 只对非保护区间应用 fn */
+function mapUnprotected(line, fn) {
+  const ivs = protectedIntervals(line);
+  let out = '';
+  let pos = 0;
+  for (const [s, e] of ivs) {
+    out += fn(line.slice(pos, s));
+    out += line.slice(s, e);
+    pos = e;
+  }
+  return out + fn(line.slice(pos));
+}
+
+function termRegex(wrong) {
+  const escaped = wrong.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  if (CJK_RE.test(wrong)) return new RegExp(escaped, 'g');
+  return new RegExp(`(?<![A-Za-z0-9_.-])${escaped}(?![A-Za-z0-9_.-])`, 'g');
+}
+
+/** 修复单个未受保护片段：日期、术语、中英间距 */
+function fixSegment(seg, terms) {
+  let count = 0;
+  let s = seg;
+
+  s = s.replace(/(\d{4})\s*年\s*(\d{1,2})\s*月\s*(\d{1,2})\s*日/g, (m, y, mo, d) => {
+    count++;
+    return `${y}-${mo.padStart(2, '0')}-${d.padStart(2, '0')}`;
+  });
+
+  for (const t of terms) {
+    s = s.replace(termRegex(t.wrong), () => { count++; return t.std; });
+  }
+
+  const before = s;
+  s = s.replace(new RegExp(`([${CJK}])([A-Za-z0-9])`, 'g'), '$1 $2')
+       .replace(new RegExp(`([A-Za-z0-9])([${CJK}])`, 'g'), '$1 $2');
+  // 每次替换只插入一个空格，长度差即修复条数
+  count += s.length - before.length;
+
+  return { text: s, count };
+}
+
+/** 中文与链接之间补空格 */
+function fixLinkSpacing(line) {
+  const ivs = protectedIntervals(line);
+  const isProtected = (i) => ivs.some(([s, e]) => i >= s && i < e);
+  const re = /(!?)\[([^\]]+)\]\(([^)]*)\)/g;
+  const inserts = [];
+  let m;
+  while ((m = re.exec(line)) !== null) {
+    if (m[1] === '!') continue;
+    const start = m.index;
+    const end = start + m[0].length;
+    if (isProtected(start)) continue;
+    const before = line[start - 1];
+    const after = line[end];
+    if (before && before !== ' ' && CJK_RE.test(before)) inserts.push(start);
+    if (after && after !== ' ' && CJK_RE.test(after)) inserts.push(end);
+  }
+  if (!inserts.length) return { text: line, count: 0 };
+  let out = line;
+  for (const i of inserts.sort((a, b) => b - a)) out = out.slice(0, i) + ' ' + out.slice(i);
+  return { text: out, count: inserts.length };
+}
+
+function fixText(text, terms) {
+  const eol = text.includes('\r\n') ? '\r\n' : '\n';
+  const lines = text.split(/\r?\n/);
+  const fmEnd = stripFrontmatter(lines);
+  let fence = null;
+  let inComment = false;
+  let count = 0;
+
+  for (let i = fmEnd; i < lines.length; i++) {
+    let line = lines[i];
+
+    if (inComment) {
+      if (line.includes('-->')) inComment = false;
+      continue;
+    }
+    if (/<!--/.test(line) && !/-->/.test(line.slice(line.indexOf('<!--') + 4))) {
+      inComment = true;
+      continue;
+    }
+
+    const fm = line.match(FENCE_RE);
+    if (fm) {
+      const marker = fm[1];
+      const info = fm[2].trim();
+      if (fence) {
+        if (marker[0] === fence.char && marker.length >= fence.len && info === '') fence = null;
+        continue;
+      }
+      if (info === '') {
+        lines[i] = line + 'text';
+        count++;
+      }
+      fence = { char: marker[0], len: marker.length };
+      continue;
+    }
+    if (fence) continue;
+
+    let out = line;
+    out = out.replace(/<br\s*>/g, () => { count++; return '<br />'; });
+    out = out.replace(/(<img[^>]*\ssrc=["'])http:\/\//gi, (m, p) => { count++; return p + 'https://'; });
+    out = out.replace(/(!\[[^\]]*\]\()http:\/\//g, (m, p) => { count++; return p + 'https://'; });
+
+    out = mapUnprotected(out, (seg) => {
+      const r = fixSegment(seg, terms);
+      count += r.count;
+      return r.text;
+    });
+
+    const ls = fixLinkSpacing(out);
+    count += ls.count;
+    out = ls.text;
+
+    if (out !== line) lines[i] = out;
+  }
+
+  return { text: lines.join(eol), count };
+}
+
 // ---------- 文件收集 ----------
 
 const SKIP_DIRS = new Set(['node_modules', '.git', '.docusaurus', 'build', 'dist', '.next']);
@@ -473,10 +626,25 @@ function main() {
 
   const all = [];
   let skippedEn = 0;
+  let fixedFiles = 0;
+  let fixedCount = 0;
   for (const f of files) {
     const rel = normalizePath(f);
     let text;
     try { text = fs.readFileSync(f, 'utf8'); } catch { continue; }
+    if (opts.fix) {
+      const r = fixText(text, terms);
+      if (r.count > 0 && r.text !== text) {
+        try {
+          fs.writeFileSync(f, r.text);
+          fixedFiles++;
+          fixedCount += r.count;
+          text = r.text;
+        } catch (e) {
+          console.error(`[doc-quality] 写入失败: ${rel} (${e.message})`);
+        }
+      }
+    }
     const cjkCount = (text.match(new RegExp(`[${CJK}]`, 'g')) || []).length;
     if (cjkCount < 20) skippedEn++;
     const found = scanFile(rel, text, terms);
@@ -524,6 +692,9 @@ function main() {
       console.log(`${f.file}:${f.line}: ${tag} [${f.rule}] ${f.message}`);
     }
     if (!opts.quiet) {
+      if (opts.fix) {
+        console.error(`[doc-quality] 已修复 ${fixedCount} 处，写入 ${fixedFiles} 个文件`);
+      }
       const byRule = {};
       for (const f of all) byRule[f.rule] = (byRule[f.rule] || 0) + 1;
       console.error(`\n[doc-quality] ${files.length} 个文件（跳过英文 ${skippedEn}） · ${errors.length} error / ${warns.length} warn`);
