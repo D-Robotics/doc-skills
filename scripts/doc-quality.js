@@ -155,7 +155,11 @@ const RULES = {
   'date/cjk': { severity: 'warn', desc: '中文数字日期' },
   'link/relative-no-ext': { severity: 'warn', desc: '相对链接缺少 .md 后缀' },
   'html/br': { severity: 'warn', desc: '<br> 缺少斜杠' },
+  'unit/fps': { severity: 'error', desc: '帧率单位写法（数值后小写 fps 并留空格）' },
 };
+
+// 数值 + fps：数字前不能紧贴字母/数字/点/@（排除 YOLOv8、1080p30fps、1920x1080@30fps 等规格写法）
+const FPS_UNIT_RE = /(?<![A-Za-z0-9_.@])(\d+(?:\.\d+)?)\s*(?:FPS|Fps|fps)\b/g;
 
 function scanFile(file, text, terms) {
   const findings = [];
@@ -330,6 +334,14 @@ function scanFile(file, text, terms) {
       push('emoji/body', lineNo, `正文使用 emoji「${emojiHits.map(e => e[0]).join('')}」，改用文字或 admonition`);
     }
 
+    // --- 帧率单位：数值后用小写 fps 并留一个空格（中英文都查；@ 规格写法除外）---
+    for (const u of m.matchAll(FPS_UNIT_RE)) {
+      const fixed = `${u[1]} fps`;
+      if (u[0] !== fixed) {
+        push('unit/fps', lineNo, `帧率单位写法「${u[0]}」→「${fixed}」（数值后用小写 fps 并留空格）`, u[0]);
+      }
+    }
+
     // --- 术语（在掩码后的行上，行内代码已排除；英文文档跳过）---
     for (const t of isZh ? terms : []) {
       const hit = findTerm(m, t.wrong);
@@ -440,6 +452,12 @@ function fixSegment(seg, terms) {
   s = s.replace(/(\d{4})\s*年\s*(\d{1,2})\s*月\s*(\d{1,2})\s*日/g, (m, y, mo, d) => {
     count++;
     return `${y}-${mo.padStart(2, '0')}-${d.padStart(2, '0')}`;
+  });
+
+  s = s.replace(FPS_UNIT_RE, (m, n) => {
+    const fixed = `${n} fps`;
+    if (m !== fixed) count++;
+    return fixed;
   });
 
   for (const t of terms) {
